@@ -13,7 +13,7 @@ exports.handler = async (event, context) => {
     const { password } = JSON.parse(event.body);
     
     // Get the password from environment variables
-    const correctPassword = process.env.SITE_PASSWORD;
+    const correctPassword = process.env.AUTH_PASSWORD;
     
     if (!correctPassword) {
       return {

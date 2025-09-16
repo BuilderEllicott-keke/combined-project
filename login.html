@@ -4,180 +4,297 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - Intersellar - GE Custom</title>
-    <link rel="stylesheet" href="/assets/css/global.css?v=6" />
-    <link rel="stylesheet" href="/assets/css/h.css?v=01" />
     <style>
-        .login-container {
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #0a0a0a;
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            font-family: 'Inter', sans-serif;
+            color: #ffffff;
         }
-        
-        .login-card {
-            background: rgba(255, 255, 255, 0.95);
+
+        .login-container {
+            display: flex;
+            width: 100%;
+            max-width: 1200px;
+            min-height: 100vh;
+        }
+
+        .left-panel {
+            flex: 1;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
             padding: 2rem;
-            border-radius: 15px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-            text-align: center;
-            max-width: 400px;
-            width: 90%;
-            backdrop-filter: blur(10px);
+            position: relative;
         }
-        
-        .login-logo {
-            width: 80px;
-            height: 80px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 50%;
+
+        .left-panel::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="%23ffffff" opacity="0.03"/><circle cx="75" cy="75" r="1" fill="%23ffffff" opacity="0.03"/><circle cx="50" cy="10" r="0.5" fill="%23ffffff" opacity="0.02"/><circle cx="10" cy="60" r="0.5" fill="%23ffffff" opacity="0.02"/><circle cx="90" cy="40" r="0.5" fill="%23ffffff" opacity="0.02"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .branding {
+            text-align: center;
+            z-index: 1;
+            position: relative;
+        }
+
+        .branding h1 {
+            font-size: 3rem;
+            font-weight: 300;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #ffffff 0%, #cccccc 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .branding p {
+            font-size: 1.1rem;
+            color: #888888;
+            font-weight: 300;
+            letter-spacing: 0.5px;
+        }
+
+        .right-panel {
+            flex: 1;
+            background: #1a1a1a;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            border-left: 1px solid #333333;
+        }
+
+        .login-form {
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .form-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .form-header h2 {
+            font-size: 2rem;
+            font-weight: 300;
+            color: #ffffff;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-header p {
+            color: #888888;
+            font-size: 0.9rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #cccccc;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .input-container {
+            position: relative;
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #666666;
+            font-size: 1.1rem;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px 12px 12px 40px;
+            background: #2a2a2a;
+            border: 1px solid #333333;
+            border-radius: 8px;
+            color: #ffffff;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #555555;
+            background: #333333;
+            box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.1);
+        }
+
+        .form-group input::placeholder {
+            color: #666666;
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 12px;
+            background: #2a2a2a;
+            color: #ffffff;
+            border: 1px solid #333333;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 1.5rem;
+            gap: 8px;
         }
-        
-        .login-logo i {
-            font-size: 2rem;
-            color: white;
-        }
-        
-        .login-title {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: #333;
-            margin-bottom: 0.5rem;
-        }
-        
-        .login-subtitle {
-            color: #666;
-            margin-bottom: 2rem;
-        }
-        
-        .form-group {
-            margin-bottom: 1.5rem;
-            text-align: left;
-        }
-        
-        .form-group label {
-            display: block;
-            color: #333;
-            margin-bottom: 0.5rem;
-            font-weight: 500;
-        }
-        
-        .form-group input {
-            width: 100%;
-            padding: 0.75rem;
-            border: 2px solid #e1e5e9;
-            border-radius: 8px;
-            font-size: 1rem;
-            transition: border-color 0.3s ease;
-            box-sizing: border-box;
-        }
-        
-        .form-group input:focus {
-            outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-        }
-        
-        .login-btn {
-            width: 100%;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
-            padding: 0.75rem;
-            border-radius: 8px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        
+
         .login-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+            background: #333333;
+            border-color: #444444;
         }
-        
-        .login-btn:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-            transform: none;
+
+        .login-btn:active {
+            transform: translateY(1px);
         }
-        
+
+        .btn-icon {
+            font-size: 1rem;
+        }
+
         .error-message {
-            background: #fee;
-            color: #c33;
-            padding: 0.75rem;
+            background: #2a1a1a;
+            color: #ff6666;
+            padding: 12px;
             border-radius: 8px;
             margin-bottom: 1rem;
-            border: 1px solid #fcc;
+            text-align: center;
+            display: none;
+            border: 1px solid #4a2a2a;
         }
-        
-        .success-message {
-            background: #efe;
-            color: #3c3;
-            padding: 0.75rem;
-            border-radius: 8px;
-            margin-bottom: 1rem;
-            border: 1px solid #cfc;
-        }
-        
+
         .loading {
             display: none;
-            color: #667eea;
+            text-align: center;
+            color: #888888;
+        }
+
+        .spinner {
+            border: 2px solid #333333;
+            border-top: 2px solid #ffffff;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 0.5rem;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @media (max-width: 768px) {
+            .login-container {
+                flex-direction: column;
+            }
+            
+            .left-panel {
+                min-height: 40vh;
+            }
+            
+            .right-panel {
+                border-left: none;
+                border-top: 1px solid #333333;
+            }
+            
+            .branding h1 {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .login-form {
+                padding: 0 1rem;
+            }
         }
     </style>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
     <div class="login-container">
-        <div class="login-card">
-            <div class="login-logo">
-                <i class="fas fa-shield-alt"></i>
+        <div class="left-panel">
+            <div class="branding">
+                <h1>Intersellar</h1>
+                <p>GE Custom Gaming Experience</p>
             </div>
-            <h1 class="login-title">Intersellar - GE Custom</h1>
-            <p class="login-subtitle">Enter password to access the portal</p>
-            
-            <div id="error-message" class="error-message" style="display: none;"></div>
-            <div id="success-message" class="success-message" style="display: none;"></div>
-            
-            <form id="login-form">
-                <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" id="password" name="password" required>
+        </div>
+        
+        <div class="right-panel">
+            <div class="login-form">
+                <div class="form-header">
+                    <h2>Log in</h2>
+                    <p>Enter your credentials to continue</p>
                 </div>
-                <button type="submit" class="login-btn" id="login-btn">
-                    <span class="btn-text">Login</span>
-                    <span class="loading">
-                        <i class="fas fa-spinner fa-spin"></i> Authenticating...
-                    </span>
-                </button>
-            </form>
+                
+                <div class="error-message" id="errorMessage"></div>
+                
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <div class="input-container">
+                            <span class="input-icon">🔒</span>
+                            <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="login-btn">
+                        <span class="btn-icon">🔑</span>
+                        <span class="btn-text">Login</span>
+                        <div class="loading" id="loading">
+                            <div class="spinner"></div>
+                            <div>Authenticating...</div>
+                        </div>
+                    </button>
+                </form>
+            </div>
         </div>
     </div>
 
     <script>
-        document.getElementById('login-form').addEventListener('submit', async function(e) {
+        document.getElementById('loginForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             
             const password = document.getElementById('password').value;
-            const loginBtn = document.getElementById('login-btn');
-            const btnText = loginBtn.querySelector('.btn-text');
-            const loading = loginBtn.querySelector('.loading');
-            const errorDiv = document.getElementById('error-message');
-            const successDiv = document.getElementById('success-message');
-            
-            // Hide previous messages
-            errorDiv.style.display = 'none';
-            successDiv.style.display = 'none';
+            const errorMessage = document.getElementById('errorMessage');
+            const loading = document.getElementById('loading');
+            const btnText = document.querySelector('.btn-text');
             
             // Show loading state
-            loginBtn.disabled = true;
+            loading.style.display = 'block';
             btnText.style.display = 'none';
-            loading.style.display = 'inline';
+            errorMessage.style.display = 'none';
             
             try {
                 const response = await fetch('/.netlify/functions/auth', {
@@ -191,35 +308,28 @@
                 const data = await response.json();
                 
                 if (data.success) {
-                    successDiv.textContent = 'Login successful! Redirecting...';
-                    successDiv.style.display = 'block';
-                    
-                    // Store session info
-                    localStorage.setItem('authenticated', 'true');
+                    // Store session token
                     localStorage.setItem('sessionToken', data.sessionToken);
-                    
+                    localStorage.setItem('authenticated', 'true');
                     // Redirect to main page
-                    setTimeout(() => {
-                        window.location.href = '/';
-                    }, 1000);
+                    window.location.href = '/index.html';
                 } else {
-                    errorDiv.textContent = data.error || 'Login failed';
-                    errorDiv.style.display = 'block';
+                    errorMessage.textContent = data.error || 'Login failed';
+                    errorMessage.style.display = 'block';
                 }
             } catch (error) {
-                errorDiv.textContent = 'Network error. Please try again.';
-                errorDiv.style.display = 'block';
+                errorMessage.textContent = 'Network error. Please try again.';
+                errorMessage.style.display = 'block';
             } finally {
-                // Reset button state
-                loginBtn.disabled = false;
-                btnText.style.display = 'inline';
+                // Hide loading state
                 loading.style.display = 'none';
+                btnText.style.display = 'block';
             }
         });
-        
+
         // Check if already authenticated
         if (localStorage.getItem('authenticated') === 'true') {
-            window.location.href = '/';
+            window.location.href = '/index.html';
         }
     </script>
 </body>
