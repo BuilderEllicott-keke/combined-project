@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="referrer" content="no-referrer" />
+  <meta http-equiv="X-Frame-Options" content="SAMEORIGIN" />
+  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+  <link rel="shortcut icon" id="tab-favicon" href="favicon.png" />
+  <title id="t">Settings - Intersellar - GE Custom</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="/assets/css/global.css?v=6" />
+  <link rel="stylesheet" href="/assets/css/container.css?v=2" />
+  <link rel="stylesheet" href="/assets/css/nav.css?v=01" />
+  <link rel="stylesheet" href="/assets/css/settings.css?v=01" />
+  <script src="/assets/js/005.js?v=000"></script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6840529569014734"
+    crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+  <div class="f-nav"></div>
+  <div class="settings-container">
+    <h1>Settings - Intersellar - GE Custom</h1>
+    <div class="settings-grid">
+      <div class="setting-card">
+        <h3>Theme Settings</h3>
+        <div class="setting-group">
+          <label for="theme-select">Select Theme:</label>
+          <select id="theme-select" onchange="changeTheme()">
+            <option value="default">Default</option>
+            <option value="catppuccinMocha">Catppuccin Mocha</option>
+            <option value="catppuccinMacchiato">Catppuccin Macchiato</option>
+            <option value="catppuccinFrappe">Catppuccin Frappe</option>
+            <option value="catppuccinLatte">Catppuccin Latte</option>
+            <option value="Inverted">Inverted</option>
+            <option value="sky">Sky</option>
+          </select>
+        </div>
+      </div>
+      
+      <div class="setting-card">
+        <h3>Cloak Settings</h3>
+        <div class="setting-group">
+          <label for="cloak-name">Custom Name:</label>
+          <input type="text" id="cloak-name" placeholder="Enter custom name">
+        </div>
+        <div class="setting-group">
+          <label for="cloak-icon">Custom Icon URL:</label>
+          <input type="url" id="cloak-icon" placeholder="Enter icon URL">
+        </div>
+        <button onclick="applyCloak()">Apply Cloak</button>
+      </div>
+      
+      <div class="setting-card">
+        <h3>Background Settings</h3>
+        <div class="setting-group">
+          <label for="bg-image">Background Image URL:</label>
+          <input type="url" id="bg-image" placeholder="Enter image URL">
+        </div>
+        <button onclick="applyBackground()">Apply Background</button>
+      </div>
+      
+      <div class="setting-card">
+        <h3>Shortcut Settings</h3>
+        <div class="setting-group">
+          <label for="shortcut-key">Shortcut Key:</label>
+          <input type="text" id="shortcut-key" placeholder="e.g., Ctrl+E">
+        </div>
+        <div class="setting-group">
+          <label for="shortcut-link">Shortcut Link:</label>
+          <input type="url" id="shortcut-link" placeholder="https://classroom.google.com/">
+        </div>
+        <button onclick="applyShortcut()">Apply Shortcut</button>
+      </div>
+    </div>
+  </div>
+  <script src="assets/js/003.js?v=000"></script>
+  <script src="/assets/js/001.js?v=001"></script>
+  <script>
+    function changeTheme() {
+      const theme = document.getElementById('theme-select').value;
+      localStorage.setItem('theme', theme);
+      location.reload();
+    }
+    
+    function applyCloak() {
+      const name = document.getElementById('cloak-name').value;
+      const icon = document.getElementById('cloak-icon').value;
+      
+      if (name) {
+        localStorage.setItem('CustomName', name);
+      }
+      if (icon) {
+        localStorage.setItem('CustomIcon', icon);
+      }
+      
+      alert('Cloak settings applied!');
+    }
+    
+    function applyBackground() {
+      const bgImage = document.getElementById('bg-image').value;
+      if (bgImage) {
+        localStorage.setItem('backgroundImage', bgImage);
+        document.body.style.backgroundImage = `url('${bgImage}')`;
+        alert('Background applied!');
+      }
+    }
+    
+    function applyShortcut() {
+      const key = document.getElementById('shortcut-key').value;
+      const link = document.getElementById('shortcut-link').value;
+      
+      if (key && link) {
+        localStorage.setItem('eventKey', JSON.stringify(key.split('+')));
+        localStorage.setItem('pLink', link);
+        alert('Shortcut applied!');
+      }
+    }
+    
+    // Load current settings
+    document.addEventListener('DOMContentLoaded', function() {
+      const currentTheme = localStorage.getItem('theme') || 'default';
+      document.getElementById('theme-select').value = currentTheme;
+      
+      const customName = localStorage.getItem('CustomName');
+      if (customName) {
+        document.getElementById('cloak-name').value = customName;
+      }
+      
+      const customIcon = localStorage.getItem('CustomIcon');
+      if (customIcon) {
+        document.getElementById('cloak-icon').value = customIcon;
+      }
+      
+      const bgImage = localStorage.getItem('backgroundImage');
+      if (bgImage) {
+        document.getElementById('bg-image').value = bgImage;
+      }
+      
+      const eventKey = JSON.parse(localStorage.getItem('eventKey')) || ['Ctrl', 'E'];
+      document.getElementById('shortcut-key').value = eventKey.join('+');
+      
+      const pLink = localStorage.getItem('pLink') || 'https://classroom.google.com/';
+      document.getElementById('shortcut-link').value = pLink;
+    });
+  </script>
+</body>
+
+</html>

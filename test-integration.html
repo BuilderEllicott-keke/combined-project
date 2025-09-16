@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Integration Test - Intersellar - GE Custom</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #1a1a1a;
+            color: #fff;
+        }
+        .test-section {
+            background: #2a2a2a;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+        .status {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+        }
+        .success { background: #4CAF50; }
+        .error { background: #f44336; }
+        .warning { background: #ff9800; }
+        button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover { background: #0056b3; }
+    </style>
+</head>
+<body>
+    <h1>Integration Test - Intersellar - GE Custom</h1>
+    
+    <div class="test-section">
+        <h2>File Structure Test</h2>
+        <div id="file-test-results"></div>
+        <button onclick="testFileStructure()">Test File Structure</button>
+    </div>
+    
+    <div class="test-section">
+        <h2>JavaScript Loading Test</h2>
+        <div id="js-test-results"></div>
+        <button onclick="testJavaScript()">Test JavaScript</button>
+    </div>
+    
+    <div class="test-section">
+        <h2>Game Library Test</h2>
+        <div id="game-test-results"></div>
+        <button onclick="testGameLibrary()">Test Game Library</button>
+    </div>
+    
+    <div class="test-section">
+        <h2>Authentication Test</h2>
+        <div id="auth-test-results"></div>
+        <button onclick="testAuthentication()">Test Authentication</button>
+    </div>
+    
+    <div class="test-section">
+        <h2>UI Elements Test</h2>
+        <div id="ui-test-results"></div>
+        <button onclick="testUIElements()">Test UI Elements</button>
+    </div>
+
+    <script>
+        function addResult(containerId, message, type = 'success') {
+            const container = document.getElementById(containerId);
+            const div = document.createElement('div');
+            div.className = `status ${type}`;
+            div.textContent = message;
+            container.appendChild(div);
+        }
+
+        function testFileStructure() {
+            const container = document.getElementById('file-test-results');
+            container.innerHTML = '';
+            
+            const requiredFiles = [
+                'index.html',
+                'games.html',
+                'apps.html',
+                'settings.html',
+                'login.html',
+                'assets/js/001.js',
+                'assets/js/002.js',
+                'assets/json/combined-games.json',
+                'netlify/functions/auth.js',
+                'netlify/functions/verify-session.js'
+            ];
+            
+            let allPresent = true;
+            requiredFiles.forEach(file => {
+                fetch(file)
+                    .then(response => {
+                        if (response.ok) {
+                            addResult('file-test-results', `✓ ${file} - Found`, 'success');
+                        } else {
+                            addResult('file-test-results', `✗ ${file} - Missing`, 'error');
+                            allPresent = false;
+                        }
+                    })
+                    .catch(() => {
+                        addResult('file-test-results', `✗ ${file} - Error loading`, 'error');
+                        allPresent = false;
+                    });
+            });
+            
+            setTimeout(() => {
+                if (allPresent) {
+                    addResult('file-test-results', 'All required files present!', 'success');
+                } else {
+                    addResult('file-test-results', 'Some files are missing!', 'error');
+                }
+            }, 2000);
+        }
+
+        function testJavaScript() {
+            const container = document.getElementById('js-test-results');
+            container.innerHTML = '';
+            
+            try {
+                // Test if main scripts can be loaded
+                const scripts = ['assets/js/001.js', 'assets/js/002.js'];
+                let loadedCount = 0;
+                
+                scripts.forEach(script => {
+                    const scriptElement = document.createElement('script');
+                    scriptElement.src = script;
+                    scriptElement.onload = () => {
+                        loadedCount++;
+                        addResult('js-test-results', `✓ ${script} loaded successfully`, 'success');
+                        if (loadedCount === scripts.length) {
+                            addResult('js-test-results', 'All JavaScript files loaded!', 'success');
+                        }
+                    };
+                    scriptElement.onerror = () => {
+                        addResult('js-test-results', `✗ ${script} failed to load`, 'error');
+                    };
+                    document.head.appendChild(scriptElement);
+                });
+            } catch (error) {
+                addResult('js-test-results', `JavaScript test error: ${error.message}`, 'error');
+            }
+        }
+
+        function testGameLibrary() {
+            const container = document.getElementById('game-test-results');
+            container.innerHTML = '';
+            
+            fetch('assets/json/combined-games.json')
+                .then(response => response.json())
+                .then(data => {
+                    if (data && data.games && Array.isArray(data.games)) {
+                        addResult('game-test-results', `✓ Game library loaded with ${data.games.length} games`, 'success');
+                        
+                        // Test categories
+                        const categories = [...new Set(data.games.map(game => game.category))];
+                        addResult('game-test-results', `✓ Found ${categories.length} categories: ${categories.join(', ')}`, 'success');
+                        
+                        // Test for required fields
+                        const requiredFields = ['name', 'url', 'category', 'icon'];
+                        const missingFields = data.games.filter(game => 
+                            requiredFields.some(field => !game[field])
+                        );
+                        
+                        if (missingFields.length === 0) {
+                            addResult('game-test-results', '✓ All games have required fields', 'success');
+                        } else {
+                            addResult('game-test-results', `⚠ ${missingFields.length} games missing required fields`, 'warning');
+                        }
+                    } else {
+                        addResult('game-test-results', '✗ Invalid game library format', 'error');
+                    }
+                })
+                .catch(error => {
+                    addResult('game-test-results', `✗ Failed to load game library: ${error.message}`, 'error');
+                });
+        }
+
+        function testAuthentication() {
+            const container = document.getElementById('auth-test-results');
+            container.innerHTML = '';
+            
+            // Test if auth functions exist
+            fetch('netlify/functions/auth.js')
+                .then(response => {
+                    if (response.ok) {
+                        addResult('auth-test-results', '✓ Auth function file exists', 'success');
+                    } else {
+                        addResult('auth-test-results', '✗ Auth function file missing', 'error');
+                    }
+                })
+                .catch(() => {
+                    addResult('auth-test-results', '✗ Auth function file error', 'error');
+                });
+            
+            fetch('netlify/functions/verify-session.js')
+                .then(response => {
+                    if (response.ok) {
+                        addResult('auth-test-results', '✓ Session verification function exists', 'success');
+                    } else {
+                        addResult('auth-test-results', '✗ Session verification function missing', 'error');
+                    }
+                })
+                .catch(() => {
+                    addResult('auth-test-results', '✗ Session verification function error', 'error');
+                });
+        }
+
+        function testUIElements() {
+            const container = document.getElementById('ui-test-results');
+            container.innerHTML = '';
+            
+            // Test if branding has been updated
+            fetch('index.html')
+                .then(response => response.text())
+                .then(html => {
+                    if (html.includes('Intersellar - GE Custom')) {
+                        addResult('ui-test-results', '✓ Branding updated to "Intersellar - GE Custom"', 'success');
+                    } else {
+                        addResult('ui-test-results', '✗ Branding not updated', 'error');
+                    }
+                    
+                    if (html.includes('interstellar')) {
+                        addResult('ui-test-results', '⚠ Found old "interstellar" references', 'warning');
+                    } else {
+                        addResult('ui-test-results', '✓ No old "interstellar" references found', 'success');
+                    }
+                })
+                .catch(error => {
+                    addResult('ui-test-results', `✗ Error testing UI elements: ${error.message}`, 'error');
+                });
+        }
+
+        // Run all tests on page load
+        window.onload = function() {
+            setTimeout(() => {
+                testFileStructure();
+                testJavaScript();
+                testGameLibrary();
+                testAuthentication();
+                testUIElements();
+            }, 1000);
+        };
+    </script>
+</body>
+</html>

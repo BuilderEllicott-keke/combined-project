@@ -1,0 +1,33 @@
+{
+  "name": "intersellar-ge-custom",
+  "version": "1.0.0",
+  "description": "Combined game library with Interstellar design and password protection",
+  "main": "index.html",
+  "scripts": {
+    "dev": "netlify dev",
+    "build": "echo 'No build process needed'",
+    "deploy": "netlify deploy --prod"
+  },
+  "dependencies": {
+    "crypto": "^1.0.1"
+  },
+  "devDependencies": {
+    "netlify-cli": "^17.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "keywords": [
+    "games",
+    "interstellar",
+    "proxy",
+    "unblocked",
+    "education"
+  ],
+  "author": "GE Custom",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-username/intersellar-ge-custom.git"
+  }
+}
