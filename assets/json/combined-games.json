@@ -1,0 +1,710 @@
+[
+  {
+    "name": "! Create Custom App",
+    "image": "/assets/media/icons/custom.webp",
+    "categories": ["all"],
+    "custom": "true"
+  },
+  {
+    "name": "! Intersellar - GE Custom FAQ/Docs",
+    "image": "/assets/media/icons/help_center_googlefonts.png",
+    "link": "https://docs.gointerstellar.app",
+    "categories": ["all"]
+  },
+  {
+    "name": "! [NEW] Request A Game",
+    "link": "https://forms.gle/vwdHN3iPz5cLaHaMA",
+    "image": "/assets/media/icons/request.webp",
+    "categories": ["all"]
+  },
+  {
+    "name": "2048",
+    "link": "/games/2048/index.html",
+    "image": "/assets/media/icons/2048.webp",
+    "categories": ["all", "local"]
+  },
+  {
+    "name": "1v1.LOL",
+    "link": "https://1v1.lol",
+    "image": "/assets/media/icons/1v1-lol.webp",
+    "categories": ["all", "2P"]
+  },
+  {
+    "name": "10 minutes till dawn",
+    "link": "/games/10-minutes-till-dawn/index.html",
+    "image": "/assets/media/icons/10-minutes-till-dawn.webp",
+    "categories": ["all", "local"]
+  },
+  {
+    "name": "A Dark Room",
+    "link": "https://adarkroom.doublespeakgames.com",
+    "image": "/assets/media/icons/ADR.webp",
+    "categories": ["all"]
+  },
+  {
+    "name": "Abandoned",
+    "link": "/games/abandoned/index.html",
+    "image": "/assets/media/icons/abandoned.webp",
+    "categories": ["all", "local", "escape"]
+  },
+  {
+    "name": "Abandoned 2",
+    "link": "/games/abandoned-2/index.html",
+    "image": "/assets/media/icons/abandoned-2.webp",
+    "categories": ["all", "local"]
+  },
+  {
+    "name": "Ages of Conflict",
+    "link": "/games/ages-of-conflict/index.html",
+    "image": "/assets/media/icons/ages-of-conflict.webp",
+    "categories": ["all", "local", "escape"]
+  },
+  {
+    "name": "Aground",
+    "link": "/games/aground/index.html",
+    "image": "/assets/media/icons/aground.webp",
+    "categories": ["all", "local"]
+  },
+  {
+    "name": "Amidst The Sky",
+    "link": "/games/amidst-the-sky/index.html",
+    "image": "/assets/media/icons/amidst-the-sky.webp",
+    "categories": ["all", "local"]
+  },
+  {
+    "name": "Another Gentlemans Adventure",
+    "link": "/games/another-gentlemans-adventure/index.html",
+    "image": "/assets/media/icons/another-gentlemans-adventure.webp",
+    "categories": ["all", "local"]
+  },
+  {
+    "name": "Awesome Tanks",
+    "link": "/games/awesome-tanks/index.html",
+    "image": "/assets/media/icons/awesome-tanks.webp",
+    "categories": ["all", "local"]
+  },
+  {
+    "name": "Awesome Tanks 2",
+    "link": "/games/awesome-tanks-2/index.html",
+    "image": "/assets/media/icons/awesome-tanks-2.webp",
+    "categories": ["all", "local"]
+  },
+  {
+    "name": "Babel Tower",
+    "link": "/games/babel-tower/index.html",
+    "image": "/assets/media/icons/babel-tower.webp",
+    "categories": ["all", "local"]
+  },
+  {
+    "name": "Basket Random",
+    "link": "https://html5.gamedistribution.com/rvvASMiM/bf1268dccb5d43e7970bb3edaa54afc8/index.html",
+    "image": "/assets/media/icons/br.webp",
+    "categories": ["all"]
+  },
+  {
+    "name": "Basketball Stars",
+    "link": "https://html5.gamedistribution.com/69d78d071f704fa183d75b4114ae40ec/",
+    "image": "/assets/media/icons/basketball-stars.webp",
+    "categories": ["all"]
+  },
+  {
+    "name": "Bit Life",
+    "link": "https://xlegends.github.io/bitlife/",
+    "image": "/assets/media/icons/bitlife.webp",
+    "categories": ["all"]
+  },
+  {
+    "name": "Boxing Random",
+    "link": "/games/boxing-random/index.html",
+    "image": "/assets/media/icons/boxing-random.webp",
+    "categories": ["all", "local"]
+  },
+  {
+    "name": "Brawl Stars Project Laser",
+    "link": "/games/brawl-stars-project-laser/index.html",
+    "image": "/assets/media/icons/brawl-stars-project-laser.webp",
+    "categories": ["all", "local"]
+  },
+  {
+    "name": "Breaklock",
+    "link": "/games/breaklock/index.html",
+    "image": "/assets/media/icons/breaklock.webp",
+    "categories": ["all", "local"]
+  },
+  {
+    "name": "Chrome Dino",
+    "link": "/games/chrome-dino/index.html",
+    "image": "/assets/media/icons/chrome-dino.webp",
+    "categories": ["all", "local"]
+  },
+  {
+    "name": "Clicker Heroes",
+    "link": "https://www.clickerheroes.com/play.html",
+    "image": "/assets/media/icons/clickerheros.webp",
+    "categories": ["all"]
+  },
+  {
+    "name": "Clicker Heroes Updated",
+    "link": "/games/clicker-heroes-updated/index.html",
+    "image": "/assets/media/icons/clicker-heroes-updated.webp",
+    "categories": ["all", "local"]
+  },
+  {
+    "name": "Cookie Clicker",
+    "link": "https://orteil.dashnet.org/cookieclicker/",
+    "image": "/assets/media/icons/cookieclicker.webp",
+    "categories": ["all"]
+  },
+  {
+    "name": "Core Ball",
+    "link": "/games/core-ball/index.html",
+    "image": "/assets/media/icons/core-ball.webp",
+    "categories": ["all", "local"]
+  },
+  {
+    "name": "Crossy Road",
+    "link": "https://5dd2e1e3-015f-11ea-ad56-9cb6d0d995f7.poki-gdn.com/169dc11d-e718-4b36-9e60-d5ed5bc07a31/index.html",
+    "image": "/assets/media/icons/cr.webp",
+    "categories": ["all"]
+  },
+  {
+    "name": "Conway's Game of Life",
+    "link": "/games/conways-game-of-life/index.html",
+    "image": "/assets/media/icons/conways-game-of-life.webp",
+    "categories": ["all", "local"]
+  },
+  {
+    "name": "Cut The Rope",
+    "link": "/games/cut-the-rope/index.html",
+    "image": "/assets/media/icons/cut-the-rope.webp",
+    "categories": ["all", "local"]
+  },
+  {
+    "name": "Dadish",
+    "link": "/games/dadish/index.html",
+    "image": "/assets/media/icons/dadish.webp",
+    "categories": ["all", "local"]
+  },
+  {
+    "name": "Dadish 2",
+    "link": "/games/dadish-2/index.html",
+    "image": "/assets/media/icons/dadish-2.webp",
+    "categories": ["all", "local"]
+  },
+  {
+    "name": "Dadish 3",
+    "link": "/games/dadish-3/index.html",
+    "image": "/assets/media/icons/dadish-3.webp",
+    "categories": ["all", "local"]
+  },
+  {
+    "name": "Doodle Jump",
+    "link": "https://doodlejump.pro/",
+    "image": "/assets/media/icons/doodlejump.webp",
+    "categories": ["all"]
+  },
+  {
+    "name": "Drift Boss",
+    "link": "https://watchdocumentaries.com/wp-content/uploads/games/drift-boss/",
+    "image": "/assets/media/icons/db.webp",
+    "categories": ["all"]
+  },
+  {
+    "name": "Drive Mad",
+    "link": "https://raw.githack.com/3kh0/3kh0-assets/main/drive-mad/index.html",
+    "image": "/assets/media/icons/dm.webp",
+    "categories": ["all"]
+  },
+  {
+    "name": "Drive Mad S",
+    "link": "/games/drive-mad-s/index.html",
+    "image": "/assets/media/icons/drive-mad-s.webp",
+    "categories": ["all", "local"]
+  },
+  {
+    "name": "Duck Life 4",
+    "link": "/games/duck-life-4/index.html",
+    "image": "/assets/media/icons/dl4.webp",
+    "categories": ["all", "local"]
+  },
+  {
+    "name": "Dune!",
+    "link": "/games/dune/index.html",
+    "image": "/assets/media/icons/dune.webp",
+    "categories": ["all", "local"]
+  },
+  {
+    "name": "Eaglercraft Ampler Launcher",
+    "link": "/games/ampler-launcher/index.html",
+    "image": "/assets/media/icons/ampler-launcher.webp",
+    "categories": ["all", "local"]
+  },
+  {
+    "name": "Eggy Car",
+    "link": "/games/eggy-car/index.html",
+    "image": "/assets/media/icons/eggy-car.webp",
+    "categories": ["all", "local"]
+  },
+  {
+    "name": "EvoWars",
+    "link": "/games/evowars/index.html",
+    "image": "/assets/media/icons/evowars.webp",
+    "categories": ["all", "local"]
+  },
+  {
+    "name": "Family Feud",
+    "link": "/games/family-feud/index.html",
+    "image": "/assets/media/icons/family-feud.webp",
+    "categories": ["all", "local"]
+  },
+  {
+    "name": "Fireboy and Watergirl in the Forest Temple",
+    "link": "https://www.coolmathgames.com/sites/default/files/public_games/40034/",
+    "image": "/assets/media/icons/fireboyandwatergirlforesttemple.webp",
+    "categories": ["all", "2P"]
+  },
+  {
+    "name": "Fireboy and Watergirl in the Light Temple",
+    "link": "https://www.coolmathgames.com/sites/default/files/public_games/40210/",
+    "image": "/assets/media/icons/fireboyandwatergirllighttemple.webp",
+    "categories": ["all", "2P"]
+  },
+  {
+    "name": "Fireboy and Watergirl in the Ice Temple",
+    "link": "/games/fireboy-and-watergirl-3/index.html",
+    "image": "/assets/media/icons/fireboy-and-watergirl-3.webp",
+    "categories": ["all", "local"]
+  },
+  {
+    "name": "Fireboy and Watergirl in the Crystal Temple",
+    "link": "https://www.coolmathgames.com/sites/default/files/public_games/40212/",
+    "image": "/assets/media/icons/fireboyandwatergirlcrystaltemple.webp",
+    "categories": ["all", "2P"]
+  },
+  {
+    "name": "Friday Night Funkin'",
+    "link": "https://w8.snokido.com/games/html5/friday-night-funkin/0281/index.html",
+    "image": "/assets/media/icons/fnf.webp",
+    "categories": ["all"]
+  },
+  {
+    "name": "Flappy Bird",
+    "link": "/games/flappy-bird/index.html",
+    "image": "/assets/media/icons/flappy-bird.webp",
+    "categories": ["all", "local"]
+  },
+  {
+    "name": "Geometry Dash Lite",
+    "link": "/games/geometry-dash-lite/index.html",
+    "image": "/assets/media/icons/geometry-dash-lite.webp",
+    "categories": ["all", "local"]
+  },
+  {
+    "name": "Geometry Dash Remastered",
+    "link": "/games/geometry-dash-remastered/index.html",
+    "image": "/assets/media/icons/geometry-dash-remastered.webp",
+    "categories": ["all", "local"]
+  },
+  {
+    "name": "Geometry Vibes",
+    "link": "/games/geometry-vibes/index.html",
+    "image": "/assets/media/icons/geometry-vibes.webp",
+    "categories": ["all", "local"]
+  },
+  {
+    "name": "Geometry Vibes Monster",
+    "link": "/games/geometry-vibes-monster/index.html",
+    "image": "/assets/media/icons/geometry-vibes-monster.webp",
+    "categories": ["all", "local"]
+  },
+  {
+    "name": "Geometry Vibes X-Ball",
+    "link": "/games/geometry-vibes-x-ball/index.html",
+    "image": "/assets/media/icons/geometry-vibes-x-ball.webp",
+    "categories": ["all", "local"]
+  },
+  {
+    "name": "Getaway Shootout",
+    "link": "https://www.twoplayergames.org/embed/getaway-shootout",
+    "image": "/assets/media/icons/getaway.webp",
+    "categories": ["all", "2P"]
+  },
+  {
+    "name": "Gons io",
+    "link": "/games/gons-io/index.html",
+    "image": "/assets/media/icons/gons-io.webp",
+    "categories": ["all", "local"]
+  },
+  {
+    "name": "Gun Spin",
+    "link": "https://html5.gamedistribution.com/rvvASMiM/917cce8c44c44638a8cdc2a1794b65c8/index.html",
+    "image": "/assets/media/icons/gunspin.webp",
+    "categories": ["all"]
+  },
+  {
+    "name": "Hextris",
+    "link": "/games/hextris/index.html",
+    "image": "/assets/media/icons/hextris.webp",
+    "categories": ["all", "local"]
+  },
+  {
+    "name": "Incremancer",
+    "link": "/games/incremancer/index.html",
+    "image": "/assets/media/icons/incremancer.webp",
+    "categories": ["all", "local"]
+  },
+  {
+    "name": "Lion Solider's Vengeance",
+    "link": "/games/lion-soldiers-vengeance/index.html",
+    "image": "/assets/media/icons/lion-soldiers-vengeance.webp",
+    "categories": ["all", "local"]
+  },
+  {
+    "name": "Idle Breakout",
+    "link": "/games/idle-breakout/index.html",
+    "image": "/assets/media/icons/idlebreakout.webp",
+    "categories": ["all", "local"]
+  },
+  {
+    "name": "Maptroid",
+    "link": "/games/maptroid/index.html",
+    "image": "/assets/media/icons/maptroid.webp",
+    "categories": ["all", "local"]
+  },
+  {
+    "name": "Mario",
+    "link": "/games/mario-game/index.html",
+    "image": "/assets/media/icons/mario-game.webp",
+    "categories": ["all", "local"]
+  },
+  {
+    "name": "Monkey Mart",
+    "link": "/games/monkey-mart/index.html",
+    "image": "/assets/media/icons/mm.webp",
+    "categories": ["all", "local"]
+  },
+  {
+    "name": "MotoX3M",
+    "link": "https://html5.gamedistribution.com/rvvASMiM/5b0abd4c0faa4f5eb190a9a16d5a1b4c/index.html",
+    "image": "/assets/media/icons/mx3m.webp",
+    "categories": ["all"]
+  },
+  {
+    "name": "N-gon",
+    "link": "https://landgreen.github.io/sidescroller/",
+    "image": "/assets/media/icons/NGON.webp",
+    "categories": ["all"]
+  },
+  {
+    "name": "N Step Steve Part 1",
+    "link": "/games/n-step-steve-part-1/index.html",
+    "image": "/assets/media/icons/n-step-steve-part-1.webp",
+    "categories": ["all", "local"]
+  },
+  {
+    "name": "N Step Steve Part 2",
+    "link": "/games/n-step-steve-part-2/index.html",
+    "image": "/assets/media/icons/n-step-steve-part-2.webp",
+    "categories": ["all", "local"]
+  },
+  {
+    "name": "OvO",
+    "link": "https://8rlfg0ch3417et18dp8lvps6uo7c3b2c-a-sites-opensocial.googleusercontent.com/gadgets/ifr?url=https://427396048-642845047394716217.preview.editmysite.com/uploads/b/139890129-761103484729797659/files/ovo.xml",
+    "image": "/assets/media/icons/ovo.webp",
+    "categories": ["all"]
+  },
+  {
+    "name": "Particle Clicker",
+    "link": "/games/particle-clicker/index.html",
+    "image": "/assets/media/icons/pc.png",
+    "categories": ["all", "local"]
+  },
+  {
+    "name": "Planet Life",
+    "link": "/games/planet-life/index.html",
+    "image": "/assets/media/icons/planet-life.webp",
+    "categories": ["all", "local"]
+  },
+  {
+    "name": "P.craft",
+    "link": "/games/pcraft/index.html",
+    "image": "/assets/media/icons/pcraft.webp",
+    "categories": ["all", "local"]
+  },
+  {
+    "name": "Progress Knight Quest",
+    "link": "/games/progress-knight-quest/index.html",
+    "image": "/assets/media/icons/progress-knight-quest.webp",
+    "categories": ["all", "local"]
+  },
+  {
+    "name": "Progress Knight Reborn",
+    "link": "/games/progress-knight-reborn/index.html",
+    "image": "/assets/media/icons/progress-knight-reborn.webp",
+    "categories": ["all", "local"]
+  },
+  {
+    "name": "Pull Of War",
+    "link": "/games/pull-of-war/index.html",
+    "image": "/assets/media/icons/pull-of-war.webp",
+    "categories": ["all", "local"]
+  },
+  {
+    "name": "Reach The Core",
+    "link": "/games/reach-the-core/index.html",
+    "image": "/assets/media/icons/reach-the-core.webp",
+    "categories": ["all", "local"]
+  },
+  {
+    "name": "Restless Wing Syndrome",
+    "link": "/games/restless-wing-syndrome/index.html",
+    "image": "/assets/media/icons/restless-wing-syndrome.webp",
+    "categories": ["all", "local"]
+  },
+  {
+    "name": "Retro Bowl",
+    "link": "/games/retro-bowl/index.html",
+    "image": "/assets/media/icons/retro.webp",
+    "categories": ["all", "local", "sports"]
+  },
+  {
+    "name": "Retro Bowl Old",
+    "link": "/games/retro-bowl-old/index.html",
+    "image": "/assets/media/icons/retro-bowl-old.webp",
+    "categories": ["all", "local"]
+  },
+  {
+    "name": "Rift Shift",
+    "link": "/games/rift-shift/index.html",
+    "image": "/assets/media/icons/rift-shift.webp",
+    "categories": ["all", "local"]
+  },
+  {
+    "name": "Rocket League 2D",
+    "link": "https://v6p9d9t4.ssl.hwcdn.net/html/3325334/index.html",
+    "image": "/assets/media/icons/2D-Rocket-League.webp",
+    "categories": ["all"]
+  },
+  {
+    "name": "Rooftop Snipers",
+    "link": "https://html5.gamedistribution.com/rvvASMiM/c3a70ae98547407a92ebedca8b79fdfa/index.html",
+    "image": "/assets/media/icons/rooftop.webp",
+    "categories": ["all"]
+  },
+  {
+    "name": "Rookie Bowman",
+    "link": "/games/rookie-bowman/index.html",
+    "image": "/assets/media/icons/rookie-bowman.webp",
+    "categories": ["all", "local"]
+  },
+  {
+    "name": "Run 3",
+    "link": "https://www.coolmathgames.com/0-run-3/play",
+    "image": "/assets/media/icons/run3.webp",
+    "categories": ["all", "flash"]
+  },
+  {
+    "name": "Run 3 Beta",
+    "link": "/games/run-3-beta/index.html",
+    "image": "/assets/media/icons/run-3-beta.webp",
+    "categories": ["all", "local"]
+  },
+  {
+    "name": "Sabercut",
+    "link": "/games/sabercut/index.html",
+    "image": "/assets/media/icons/sabercut.webp",
+    "categories": ["all", "local"]
+  },
+  {
+    "name": "Sandspiel",
+    "link": "https://sandspiel.club/",
+    "image": "/assets/media/icons/sand.webp",
+    "categories": ["all"]
+  },
+  {
+    "name": "Scuba Bear",
+    "link": "/games/scuba-bear/index.html",
+    "image": "/assets/media/icons/scuba-bear.webp",
+    "categories": ["all", "local"]
+  },
+  {
+    "name": "Shadow Fight",
+    "link": "/games/shadow-fight/index.html",
+    "image": "/assets/media/icons/shadow-fight.webp",
+    "categories": ["all", "local"]
+  },
+  {
+    "name": "Slice Master",
+    "link": "/games/slice-master/index.html",
+    "image": "/assets/media/icons/slice-master.webp",
+    "categories": ["all", "local"]
+  },
+  {
+    "name": "Slope",
+    "link": "https://watchdocumentaries.com/wp-content/uploads/games/slope/",
+    "image": "/assets/media/icons/slope.webp",
+    "categories": ["all"]
+  },
+  {
+    "name": "Smash Karts",
+    "link": "https://smashkarts.io/",
+    "image": "/assets/media/icons/smashkarts.webp",
+    "categories": ["all"]
+  },
+  {
+    "name": "Soccer Random",
+    "link": "/games/soccer-random/index.html",
+    "image": "/assets/media/icons/soccer-random.webp",
+    "categories": ["all", "local"]
+  },
+  {
+    "name": "Station Saturn",
+    "link": "/games/station-saturn/index.html",
+    "image": "/assets/media/icons/station-saturn.webp",
+    "categories": ["all", "local"]
+  },
+  {
+    "name": "Stickman Hook",
+    "link": "/games/stickman-hook/index.html",
+    "image": "/assets/media/icons/stickmanhook.webp",
+    "categories": ["all", "local"]
+  },
+  {
+    "name": "Subway Surfers",
+    "link": "https://raw.githack.com/3kh0/3kh0-assets/main/subway-surfers/index.html",
+    "image": "/assets/media/icons/SF.webp",
+    "categories": ["all", "emu"]
+  },
+  {
+    "name": "Subway Surfers New York",
+    "link": "/games/subway-surfers-ny/index.html",
+    "image": "/assets/media/icons/subway-surfers-ny.webp",
+    "categories": ["all", "local"]
+  },
+  {
+    "name": "Tanuki Sunset",
+    "link": "https://watchdocumentaries.com/wp-content/uploads/games/tanuki-sunset",
+    "image": "/assets/media/icons/tanuki.webp",
+    "categories": ["all"]
+  },
+  {
+    "name": "Temple Run 2",
+    "link": "https://watchdocumentaries.com/wp-content/uploads/games/temple-run-2/",
+    "image": "/assets/media/icons/temple-run-2.webp",
+    "categories": ["all"]
+  },
+  {
+    "name": "The Final Earth",
+    "link": "/games/the-final-earth/index.html",
+    "image": "/assets/media/icons/the-final-earth.webp",
+    "categories": ["all", "local"]
+  },
+  {
+    "name": "The Treasure",
+    "link": "/games/the-treasure/index.html",
+    "image": "/assets/media/icons/the-treasure.webp",
+    "categories": ["all", "local", "escape"]
+  },
+  {
+    "name": "There Is No Game",
+    "link": "https://5dd2d607-015f-11ea-ad56-9cb6d0d995f7.poki-gdn.com/38959ae1-110b-49ab-86ae-df425fd7862a/index.html",
+    "image": "/assets/media/icons/thereisnogame.webp",
+    "categories": ["all"]
+  },
+  {
+    "name": "Tic Tac What?",
+    "link": "/games/tic-tac-what/index.html",
+    "image": "/assets/media/icons/tic-tac-what.webp",
+    "categories": ["all", "local"]
+  },
+  {
+    "name": "Time Shooter",
+    "link": "/games/time-shooter/index.html",
+    "image": "/assets/media/icons/time-shooter.webp",
+    "categories": ["all", "local"]
+  },
+  {
+    "name": "Time Shooter 3",
+    "link": "/games/time-shooter-3/index.html",
+    "image": "/assets/media/icons/time-shooter-3.webp",
+    "categories": ["all", "local"]
+  },
+  {
+    "name": "Tiny Fishing",
+    "link": "https://www.dob5.com/d/file/games/tiny-fishing/",
+    "image": "/assets/media/icons/tinyfishing.webp",
+    "categories": ["all"]
+  },
+  {
+    "name": "Trace",
+    "link": "/games/trace/index.html",
+    "image": "/assets/media/icons/trace.webp",
+    "categories": ["all", "local", "escape"]
+  },
+  {
+    "name": "Tunnel Rush",
+    "link": "https://5dd2e8e4-015f-11ea-ad56-9cb6d0d995f7.poki-gdn.com/5627efae-e960-407d-82a5-3da708eb4e68/index.html",
+    "image": "/assets/media/icons/tunnelrush.webp",
+    "categories": ["all", "2P"]
+  },
+  {
+    "name": "Two Ball 3d",
+    "link": "/games/two-ball-3d/index.html",
+    "image": "/assets/media/icons/two-ball-3d.webp",
+    "categories": ["all", "local"]
+  },
+  {
+    "name": "Vex 3",
+    "link": "/games/vex-3/index.html",
+    "image": "/assets/media/icons/vex3.webp",
+    "categories": ["all", "local"]
+  },
+  {
+    "name": "Vex 4",
+    "link": "/games/vex-4/index.html",
+    "image": "/assets/media/icons/vex4.webp",
+    "categories": ["all", "local"]
+  },
+  {
+    "name": "Vex 5",
+    "link": "/games/vex-5/index.html",
+    "image": "/assets/media/icons/vex5.webp",
+    "categories": ["all", "local"]
+  },
+  {
+    "name": "Vex 6",
+    "link": "/games/vex-6/index.html",
+    "image": "/assets/media/icons/vex6.webp",
+    "categories": ["all", "local"]
+  },
+  {
+    "name": "Vex 7",
+    "link": "/games/vex-7/index.html",
+    "image": "/assets/media/icons/vex7.webp",
+    "categories": ["all", "local"]
+  },
+  {
+    "name": "Volley Random",
+    "link": "/games/volley-random/index.html",
+    "image": "/assets/media/icons/volley-random.webp",
+    "categories": ["all", "local"]
+  },
+  {
+    "name": "Web OSU",
+    "link": "/games/web-osu/index.html",
+    "image": "/assets/media/icons/web-osu.webp",
+    "categories": ["all", "local"]
+  },
+  {
+    "name": "X Trench Run",
+    "link": "/games/x-trench-run/index.html",
+    "image": "/assets/media/icons/x-trench-run.webp",
+    "categories": ["all", "local"]
+  },
+  {
+    "name": "Yohoho",
+    "link": "https://yohoho.io/",
+    "image": "/assets/media/icons/yohoho.webp",
+    "categories": ["all", "2P"]
+  }
+]
