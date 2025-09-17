@@ -50,33 +50,6 @@ async function checkAuthentication() {
   }
 }
 
-// Stealth mode functionality
-function initializeStealthMode() {
-  // Override the stealth functions from the main page
-  window.showContent = function() {
-    const stealthOverlay = document.getElementById('stealthOverlay');
-    const mainContent = document.getElementById('mainContent');
-    const title = document.getElementById('t');
-    
-    if (stealthOverlay && mainContent) {
-      stealthOverlay.classList.add('hidden');
-      mainContent.classList.add('visible');
-      if (title) title.textContent = 'Intersellar - GE Custom';
-    }
-  };
-
-  window.hideContent = function() {
-    const stealthOverlay = document.getElementById('stealthOverlay');
-    const mainContent = document.getElementById('mainContent');
-    const title = document.getElementById('t');
-    
-    if (stealthOverlay && mainContent) {
-      stealthOverlay.classList.remove('hidden');
-      mainContent.classList.remove('visible');
-      if (title) title.textContent = 'New Tab';
-    }
-  };
-}
 
 document.addEventListener("DOMContentLoaded", async () => {
   // Check authentication first
@@ -89,10 +62,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     return; // Stop execution if not authenticated
   }
 
-  // Initialize stealth mode if on main page
-  if (window.location.pathname === '/' || window.location.pathname === '/index.html') {
-    initializeStealthMode();
-  }
 
   // Blocked Hostnames Check
   const blockedHostnames = [
