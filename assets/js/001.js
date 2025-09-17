@@ -11,58 +11,7 @@ try {
   }
 }
 
-// Authentication check
-async function checkAuthentication() {
-  try {
-    const response = await fetch('/.netlify/functions/verify-session');
-    const data = await response.json();
-    
-    if (!data.authenticated) {
-      // Clear any stored auth data
-      localStorage.removeItem('authenticated');
-      localStorage.removeItem('sessionToken');
-      localStorage.removeItem('userType');
-      localStorage.removeItem('dateCode');
-      
-      // Redirect to login if not on login page
-      if (!window.location.pathname.includes('login.html')) {
-        window.location.href = '/login.html';
-        return false;
-      }
-    } else {
-      // Store additional session info
-      if (data.userType) {
-        localStorage.setItem('userType', data.userType);
-      }
-      if (data.dateCode) {
-        localStorage.setItem('dateCode', data.dateCode);
-      }
-    }
-    return data.authenticated;
-  } catch (error) {
-    console.error('Auth check failed:', error);
-    // If auth check fails and we're not on login page, redirect to login
-    if (!window.location.pathname.includes('login.html')) {
-      window.location.href = '/login.html';
-      return false;
-    }
-    return false;
-  }
-}
-
-
-document.addEventListener("DOMContentLoaded", async () => {
-  // Check authentication first
-  const isAuthenticated = await checkAuthentication();
-  if (!isAuthenticated && !window.location.pathname.includes('login.html')) {
-    // Only redirect to login if not already there
-    if (window.location.pathname !== '/login.html') {
-      window.location.href = '/login.html';
-    }
-    return; // Stop execution if not authenticated
-  }
-
-
+document.addEventListener("DOMContentLoaded", () => {
   // Blocked Hostnames Check
   const blockedHostnames = [
     "gointerstellar.app",
@@ -90,15 +39,13 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
     const html = `
       <div id="icon-container">
-        <a class="icon" href="/"><img alt="nav" id="INImg" src="${LogoUrl}"/></a>
+        <a class="icon" href="/./"><img alt="nav" id="INImg" src="${LogoUrl}"/></a>
       </div>
       <div class="f-nav-right">
-        <a class="navbar-link" href="/games.html"><i class="fa-solid fa-gamepad navbar-icon"></i><an>&#71;&#97;</an><an>&#109;&#101;&#115;</an></a>
-        <a class="navbar-link" href="/apps.html"><i class="fa-solid fa-phone navbar-icon"></i><an>&#65;&#112;</an><an>&#112;&#115;</an></a>
-        ${qp ? "" : '<a class="navbar-link" href="/d"><i class="fa-solid fa-laptop navbar-icon"></i><an>&#84;&#97;</an><an>&#98;&#115;</an></a>'}
-        <a class="navbar-link" href="/settings.html"><i class="fa-solid fa-gear navbar-icon settings-icon"></i><an>&#83;&#101;&#116;</an><an>&#116;&#105;&#110;&#103;</an></a>
-        ${localStorage.getItem('userType') === 'admin' ? '<a class="navbar-link" href="/admin.html"><i class="fa-solid fa-shield-halved navbar-icon"></i><an>&#65;&#100;&#109;&#105;&#110;</an></a>' : ''}
-        <a class="navbar-link" href="/login.html" onclick="logout()"><i class="fa-solid fa-sign-out-alt navbar-icon"></i><an>&#76;&#111;&#103;&#111;&#117;&#116;</an></a>
+        <a class="navbar-link" href="/./a"><i class="fa-solid fa-gamepad navbar-icon"></i><an>&#71;&#97;</an><an>&#109;&#101;&#115;</an></a>
+        <a class="navbar-link" href="/./b"><i class="fa-solid fa-phone navbar-icon"></i><an>&#65;&#112;</an><an>&#112;&#115;</an></a>
+        ${qp ? "" : '<a class="navbar-link" href="/./d"><i class="fa-solid fa-laptop navbar-icon"></i><an>&#84;&#97;</an><an>&#98;&#115;</an></a>'}
+        <a class="navbar-link" href="/./c"><i class="fa-solid fa-gear navbar-icon settings-icon"></i><an>&#83;&#101;&#116;</an><an>&#116;&#105;&#110;&#103;</an></a>
       </div>`;
     nav.innerHTML = html;
   }
@@ -380,12 +327,3 @@ document.addEventListener("DOMContentLoaded", async () => {
     document.body.style.backgroundImage = `url('${savedBackgroundImage}')`;
   }
 });
-
-// Logout function
-function logout() {
-  if (confirm('Are you sure you want to logout?')) {
-    localStorage.removeItem('authenticated');
-    localStorage.removeItem('sessionToken');
-    window.location.href = '/login.html';
-  }
-}

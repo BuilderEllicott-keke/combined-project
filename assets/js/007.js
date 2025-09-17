@@ -1,6 +1,6 @@
 // t.js
 window.addEventListener("load", () => {
-  navigator.serviceWorker.register("/sw.js?v=2025-04-15", { scope: "/a/" });
+  navigator.serviceWorker.register("../sw.js?v=2025-04-15", { scope: "/a/" });
   const form = document.getElementById("fv");
   const input = document.getElementById("iv");
   if (form && input) {
@@ -14,13 +14,6 @@ window.addEventListener("load", () => {
     });
   }
   function processUrl(url) {
-    // Check if proxy config is available
-    if (typeof __uv$config === 'undefined') {
-      console.error('Proxy configuration not loaded. Please refresh the page.');
-      alert('Proxy system not ready. Please refresh the page.');
-      return;
-    }
-    
     sessionStorage.setItem("GoUrl", __uv$config.encodeUrl(url));
     const iframeContainer = document.getElementById("frame-container");
     const activeIframe = Array.from(iframeContainer.querySelectorAll("iframe")).find(

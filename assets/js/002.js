@@ -1,7 +1,7 @@
 // c.js
 let appInd;
-const g = window.location.pathname === "/games.html";
-const a = window.location.pathname === "/apps.html";
+const g = window.location.pathname === "/a";
+const a = window.location.pathname === "/b";
 const c = window.location.pathname === "/gt";
 
 let t;
@@ -26,11 +26,6 @@ function Span(name) {
 
 function saveToLocal(path) {
   sessionStorage.setItem("GoUrl", path);
-}
-
-function now(url) {
-  // Open in new tab for now.gg games
-  window.open(url, '_blank');
 }
 
 function handleClick(app) {
@@ -66,17 +61,10 @@ function handleClick(app) {
     Custom(app);
   } else if (app.dy) {
     dy(Selected);
-  } else if (app.cloak) {
-    // Open in new tab
-    window.open(Selected, '_blank');
   } else {
-    // For regular games, open in new tab for external links
-    if (Selected && Selected.startsWith('http')) {
-      // External game - open in new tab
-      window.open(Selected, '_blank');
-    } else if (Selected) {
-      // Local game or relative path
-      window.location.href = Selected;
+    go(Selected);
+    if (t) {
+      blank(Selected);
     }
   }
   return false;
@@ -257,9 +245,9 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
-let path = "/assets/json/combined-games.json";
+let path = "/assets/json/a.min.json";
 if (g) {
-  path = "/assets/json/combined-games.json";
+  path = "/assets/json/g.min.json";
 } else if (c) {
   path = "/assets/json/t.min.json";
 } else if (a) {
@@ -396,22 +384,11 @@ fetch(path)
     }
 
     const appsContainer = document.getElementById("apps-container");
-    if (appsContainer) {
-      appsContainer.appendChild(pinnedApps);
-      appsContainer.appendChild(nonPinnedApps);
-    }
+    appsContainer.appendChild(pinnedApps);
+    appsContainer.appendChild(nonPinnedApps);
   })
   .catch(error => {
     console.error("Error fetching JSON data:", error);
-    // Show user-friendly error message
-    const errorDiv = document.createElement('div');
-    errorDiv.style.cssText = 'background: #ff4444; color: white; padding: 20px; margin: 20px; border-radius: 8px; text-align: center;';
-    errorDiv.innerHTML = `
-      <h3>Failed to load games</h3>
-      <p>There was an error loading the game library. Please refresh the page.</p>
-      <button onclick="location.reload()" style="background: white; color: #ff4444; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer;">Refresh Page</button>
-    `;
-    document.body.appendChild(errorDiv);
   });
 
 function category() {
