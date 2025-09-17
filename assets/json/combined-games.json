@@ -6,6 +6,13 @@
     "custom": "true"
   },
   {
+    "name": "🕵️ Cloaking Test Game",
+    "image": "/assets/media/icons/custom.webp",
+    "link": "https://www.google.com",
+    "categories": ["all"],
+    "cloak": "true"
+  },
+  {
     "name": "! Intersellar - GE Custom FAQ/Docs",
     "image": "/assets/media/icons/help_center_googlefonts.png",
     "link": "https://docs.gointerstellar.app",

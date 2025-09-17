@@ -61,11 +61,14 @@ function handleClick(app) {
     Custom(app);
   } else if (app.dy) {
     dy(Selected);
+  } else if (app.cloak) {
+    // Enhanced cloaking with about:blank
+    openCloakedGame(Selected, app.name);
   } else {
-    // For regular games, launch them directly instead of redirecting to homepage
+    // For regular games, use enhanced cloaking by default
     if (Selected && Selected.startsWith('http')) {
-      // External game - open in new tab or iframe
-      window.open(Selected, '_blank');
+      // External game - open with cloaking
+      openCloakedGame(Selected, app.name);
     } else if (Selected) {
       // Local game or relative path
       window.location.href = Selected;
@@ -439,5 +442,187 @@ function bar() {
     } else {
       game.style.display = "none";
     }
+  }
+}
+
+// Enhanced cloaking function using about:blank technique
+function openCloakedGame(url, gameName) {
+  try {
+    // Open new window with about:blank
+    const cloakedWindow = window.open('about:blank', '_blank', 'width=1200,height=800,scrollbars=yes,resizable=yes');
+    
+    if (!cloakedWindow) {
+      // Fallback if popup blocked
+      alert('Popup blocked! Please allow popups for this site.');
+      return;
+    }
+
+    // Create the cloaked HTML content
+    const cloakedHTML = `
+      <!DOCTYPE html>
+      <html lang="en">
+      <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>New Tab</title>
+        <style>
+          body {
+            margin: 0;
+            padding: 0;
+            background: #000;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+          }
+          .stealth-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            transition: opacity 0.5s ease;
+          }
+          .stealth-overlay.hidden {
+            opacity: 0;
+            pointer-events: none;
+          }
+          .stealth-text {
+            font-size: 14px;
+            color: #333;
+            text-align: center;
+          }
+          .game-container {
+            width: 100%;
+            height: 100vh;
+            position: relative;
+          }
+          .game-iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            display: none;
+          }
+          .game-iframe.visible {
+            display: block;
+          }
+          .reveal-hint {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0,0,0,0.7);
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-size: 12px;
+            color: #888;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+          }
+          .reveal-hint.show {
+            opacity: 1;
+          }
+        </style>
+      </head>
+      <body>
+        <!-- Stealth overlay -->
+        <div class="stealth-overlay" id="stealthOverlay">
+          <div class="stealth-text">about:blank</div>
+        </div>
+        
+        <!-- Game container -->
+        <div class="game-container">
+          <iframe class="game-iframe" id="gameFrame" src="${url}"></iframe>
+          <div class="reveal-hint" id="revealHint">Click anywhere to reveal game</div>
+        </div>
+
+        <script>
+          let stealthMode = true;
+          let inactivityTimer;
+          
+          function revealGame() {
+            stealthMode = false;
+            document.getElementById('stealthOverlay').classList.add('hidden');
+            document.getElementById('gameFrame').classList.add('visible');
+            document.getElementById('revealHint').classList.add('show');
+            document.title = '${gameName || 'Game'} - Intersellar';
+            
+            // Hide hint after 3 seconds
+            setTimeout(() => {
+              document.getElementById('revealHint').classList.remove('show');
+            }, 3000);
+          }
+          
+          function hideGame() {
+            stealthMode = true;
+            document.getElementById('stealthOverlay').classList.remove('hidden');
+            document.getElementById('gameFrame').classList.remove('visible');
+            document.getElementById('revealHint').classList.remove('show');
+            document.title = 'New Tab';
+          }
+          
+          // Show game on any interaction
+          document.addEventListener('click', function() {
+            if (stealthMode) {
+              revealGame();
+            }
+          });
+          
+          document.addEventListener('keydown', function() {
+            if (stealthMode) {
+              revealGame();
+            }
+          });
+          
+          document.addEventListener('mousemove', function() {
+            if (stealthMode) {
+              clearTimeout(inactivityTimer);
+              inactivityTimer = setTimeout(revealGame, 2000);
+            }
+          });
+          
+          // Auto-hide after 30 seconds of inactivity
+          function resetInactivityTimer() {
+            clearTimeout(inactivityTimer);
+            inactivityTimer = setTimeout(() => {
+              if (!stealthMode) {
+                hideGame();
+              }
+            }, 30000);
+          }
+          
+          document.addEventListener('mousemove', resetInactivityTimer);
+          document.addEventListener('keydown', resetInactivityTimer);
+          document.addEventListener('click', resetInactivityTimer);
+          
+          // Initialize
+          resetInactivityTimer();
+          
+          // Show hint after 2 seconds
+          setTimeout(() => {
+            if (stealthMode) {
+              document.getElementById('revealHint').classList.add('show');
+            }
+          }, 2000);
+        </script>
+      </body>
+      </html>
+    `;
+    
+    // Write the cloaked content to the new window
+    cloakedWindow.document.write(cloakedHTML);
+    cloakedWindow.document.close();
+    
+    // Focus the new window
+    cloakedWindow.focus();
+    
+  } catch (error) {
+    console.error('Error opening cloaked game:', error);
+    // Fallback to regular window.open
+    window.open(url, '_blank');
   }
 }

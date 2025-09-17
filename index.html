@@ -95,15 +95,19 @@
       window.location.href = '/login.html';
     }
 
-    // Stealth functionality
+    // Enhanced stealth functionality
     let stealthMode = true;
     let stealthTimeout;
+    let inactivityTimer;
 
     function showContent() {
       stealthMode = false;
       document.getElementById('stealthOverlay').classList.add('hidden');
       document.getElementById('mainContent').classList.add('visible');
       document.getElementById('t').textContent = 'Intersellar - GE Custom';
+      
+      // Reset inactivity timer when content is shown
+      resetInactivityTimer();
     }
 
     function hideContent() {
@@ -111,6 +115,16 @@
       document.getElementById('stealthOverlay').classList.remove('hidden');
       document.getElementById('mainContent').classList.remove('visible');
       document.getElementById('t').textContent = 'New Tab';
+    }
+
+    // Enhanced inactivity detection
+    function resetInactivityTimer() {
+      clearTimeout(inactivityTimer);
+      inactivityTimer = setTimeout(() => {
+        if (!stealthMode) {
+          hideContent();
+        }
+      }, 30000); // 30 seconds of inactivity
     }
 
     // Show content on any user interaction
@@ -131,22 +145,16 @@
         clearTimeout(stealthTimeout);
         stealthTimeout = setTimeout(showContent, 1000);
       }
+      // Reset inactivity timer on mouse movement
+      resetInactivityTimer();
     });
 
-    // Auto-hide after 30 seconds of inactivity
-    let inactivityTimer;
-    function resetInactivityTimer() {
-      clearTimeout(inactivityTimer);
-      inactivityTimer = setTimeout(() => {
-        if (!stealthMode) {
-          hideContent();
-        }
-      }, 30000);
-    }
-
+    // Enhanced event listeners for inactivity detection
     document.addEventListener('mousemove', resetInactivityTimer);
     document.addEventListener('keydown', resetInactivityTimer);
     document.addEventListener('click', resetInactivityTimer);
+    document.addEventListener('scroll', resetInactivityTimer);
+    document.addEventListener('touchstart', resetInactivityTimer);
 
     // Initialize
     resetInactivityTimer();

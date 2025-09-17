@@ -1,0 +1,77 @@
+# Intersellar - GE Custom Environment Variables Template
+# Copy this to your Netlify environment variables
+
+# Admin Access Code (Special access for system administration)
+ADMIN_CODE=Ellicott111010!
+
+# Daily Access Codes (MonthDD_Year format)
+# September 2025
+Sep17_25=pdF9FR7b32:np9ffBUMvh
+Sep18_25=xXVYGdsfae:nQfDsFsXP5
+Sep19_25=CTxwLhr9FZ:B8gLPmxjvp
+Sep20_25=Lpc6vCcPsC:AjsqFuY3yu
+Sep21_25=TPykKgtsEU:T3y2zwtDRj
+Sep22_25=C5zaV4ba2Z:5c4qGn7s6T
+Sep23_25=Vz4VF4RGw9:9fk9YdkysD
+Sep24_25=nYcacC8EaQ:kVsHD6AfbH
+Sep25_25=z4uhmS7NC4:dWxBchhuKa
+Sep26_25=Q39Mg3jHPe:gDLMyQJPgV
+Sep27_25=s5YdgsS9ST:JY8JSBn8qh
+Sep28_25=ZeFnm2LCX8:j83rRF3Px4
+Sep29_25=dwz62c9d3E:tAZJTdyCfN
+Sep30_25=XwEmrg9LMz:LzHZPJtRQf
+
+# October 2025
+Oct01_25=2TcHewC2pd:GR2MtGnqkC
+Oct02_25=kXsJtCVq43:ZQpxVr3pDX
+Oct03_25=nmsQ9HwWTr:X6kLSNhD9z
+Oct04_25=XEKy67dhf4:LwjwKZkV5p
+Oct05_25=eaqZ5yDgby:cZ65RjUkTU
+Oct06_25=BrEmmwMVVs:heFnEk5PWq
+Oct07_25=R7WndFJjfP:7xTc9PPsnf
+Oct08_25=bFS6DhUzha:HK94KS9fWS
+Oct09_25=uuKxPvpPje:UeTTLjyMYP
+Oct10_25=9Lq3wEuT68:fWqQc2tYZ8
+Oct11_25=VFcPpEMRH8:weNFH4Daka
+Oct12_25=BRjVkuNQD6:YyyVT9hGGJ
+Oct13_25=KaKPQjnr2w:wBRqaLYYdX
+Oct14_25=JhjCUDEd6d:r4NvRw8xwa
+Oct15_25=9gEznE4Sqr:uCgtDEZZf4
+Oct16_25=xS9gVFZ4cc:6pg6mppCgw
+Oct17_25=wLTqWFKvAS:vRuH4R5PAR
+Oct18_25=uTGHwjS28Y:ULEJpqSvSE
+Oct19_25=QYynpwf2rR:46yQhazZPE
+Oct20_25=eRTmzjGaP3:uRvVzJBwDH
+Oct21_25=NwcwPVAStP:xRAScKUvud
+
+# Add more months as needed...
+# November 2025
+Nov01_25=YOUR_CODE_HERE
+Nov02_25=YOUR_CODE_HERE
+# ... continue for all 365 days
+
+# December 2025
+Dec01_25=YOUR_CODE_HERE
+Dec02_25=YOUR_CODE_HERE
+# ... continue for all 365 days
+
+# January 2026
+Jan01_26=YOUR_CODE_HERE
+Jan02_26=YOUR_CODE_HERE
+# ... continue for all 365 days
+
+# Instructions:
+# 1. Copy all these variables to your Netlify environment variables
+# 2. Replace YOUR_CODE_HERE with actual access codes for each day
+# 3. Generate unique codes for each day (recommended format: 10 random characters:10 random characters)
+# 4. The system will automatically use the correct code based on the current date
+# 5. Admin code (Ellicott111010!) provides special access to admin panel
+# 6. Users can only access with the current day's code
+# 7. Codes expire at midnight and new codes become active
+
+# Security Notes:
+# - Each code should be unique and unpredictable
+# - Consider using a password generator for the codes
+# - Monitor access logs through the admin panel
+# - Change admin code regularly
+# - Consider implementing rate limiting for failed attempts

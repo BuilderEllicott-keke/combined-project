@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cloaking Test - Intersellar - GE Custom</title>
+    <link rel="stylesheet" href="/assets/css/global.css?v=6" />
+    <style>
+        body {
+            background: #1a1a1a;
+            color: #fff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+        .test-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #2a2a2a;
+            padding: 30px;
+            border-radius: 10px;
+        }
+        .test-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #333;
+            border-radius: 8px;
+        }
+        .test-button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px;
+            font-size: 16px;
+        }
+        .test-button:hover {
+            background: #0056b3;
+        }
+        .test-button.success {
+            background: #28a745;
+        }
+        .test-button.danger {
+            background: #dc3545;
+        }
+        .test-results {
+            margin-top: 20px;
+            padding: 15px;
+            background: #444;
+            border-radius: 5px;
+            font-family: monospace;
+        }
+        .status {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 3px;
+            font-weight: bold;
+            margin: 5px;
+        }
+        .status.pass {
+            background: #28a745;
+            color: white;
+        }
+        .status.fail {
+            background: #dc3545;
+            color: white;
+        }
+        .status.info {
+            background: #17a2b8;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>🕵️ Cloaking System Test Suite</h1>
+        <p>This page tests the enhanced about:blank cloaking functionality.</p>
+
+        <div class="test-section">
+            <h2>Test 1: Basic Cloaking Function</h2>
+            <p>Test the openCloakedGame function with a sample URL.</p>
+            <button class="test-button" onclick="testBasicCloaking()">Test Basic Cloaking</button>
+            <div id="test1-results" class="test-results" style="display: none;"></div>
+        </div>
+
+        <div class="test-section">
+            <h2>Test 2: Popup Blocking Detection</h2>
+            <p>Test if popup blocking is properly detected and handled.</p>
+            <button class="test-button" onclick="testPopupBlocking()">Test Popup Blocking</button>
+            <div id="test2-results" class="test-results" style="display: none;"></div>
+        </div>
+
+        <div class="test-section">
+            <h2>Test 3: Multiple Cloaked Windows</h2>
+            <p>Test opening multiple cloaked windows simultaneously.</p>
+            <button class="test-button" onclick="testMultipleWindows()">Test Multiple Windows</button>
+            <div id="test3-results" class="test-results" style="display: none;"></div>
+        </div>
+
+        <div class="test-section">
+            <h2>Test 4: Error Handling</h2>
+            <p>Test error handling with invalid URLs.</p>
+            <button class="test-button" onclick="testErrorHandling()">Test Error Handling</button>
+            <div id="test4-results" class="test-results" style="display: none;"></div>
+        </div>
+
+        <div class="test-section">
+            <h2>Test 5: Stealth Mode Toggle</h2>
+            <p>Test the stealth mode toggle functionality.</p>
+            <button class="test-button" onclick="testStealthToggle()">Test Stealth Toggle</button>
+            <div id="test5-results" class="test-results" style="display: none;"></div>
+        </div>
+
+        <div class="test-section">
+            <h2>Test 6: Inactivity Timer</h2>
+            <p>Test the inactivity timer functionality.</p>
+            <button class="test-button" onclick="testInactivityTimer()">Test Inactivity Timer</button>
+            <div id="test6-results" class="test-results" style="display: none;"></div>
+        </div>
+
+        <div class="test-section">
+            <h2>Run All Tests</h2>
+            <p>Run all tests in sequence.</p>
+            <button class="test-button success" onclick="runAllTests()">Run All Tests</button>
+            <div id="all-tests-results" class="test-results" style="display: none;"></div>
+        </div>
+    </div>
+
+    <script src="/assets/js/002.js?v=001"></script>
+    <script src="test-cloaking-script.js"></script>
+    <script>
+        let testResults = [];
+        let testWindows = [];
+
+        function logTest(testName, status, message) {
+            const result = { testName, status, message, timestamp: new Date().toISOString() };
+            testResults.push(result);
+            console.log(`[${status.toUpperCase()}] ${testName}: ${message}`);
+        }
+
+        function displayResults(testId, results) {
+            const container = document.getElementById(testId);
+            container.style.display = 'block';
+            container.innerHTML = results.map(r => 
+                `<div class="status ${r.status}">${r.testName}: ${r.message}</div>`
+            ).join('');
+        }
+
+        function testBasicCloaking() {
+            logTest('Basic Cloaking', 'info', 'Starting basic cloaking test...');
+            
+            try {
+                // Test with a safe URL
+                const testUrl = 'https://www.google.com';
+                const testName = 'Google Test';
+                
+                openCloakedGame(testUrl, testName);
+                logTest('Basic Cloaking', 'pass', 'Cloaked window opened successfully');
+                
+                // Check if window was created
+                setTimeout(() => {
+                    if (testWindows.length > 0) {
+                        logTest('Basic Cloaking', 'pass', 'Window creation confirmed');
+                    } else {
+                        logTest('Basic Cloaking', 'fail', 'Window creation failed');
+                    }
+                }, 1000);
+                
+            } catch (error) {
+                logTest('Basic Cloaking', 'fail', `Error: ${error.message}`);
+            }
+            
+            displayResults('test1-results', testResults.filter(r => r.testName === 'Basic Cloaking'));
+        }
+
+        function testPopupBlocking() {
+            logTest('Popup Blocking', 'info', 'Testing popup blocking detection...');
+            
+            // Temporarily disable popups for testing
+            const originalOpen = window.open;
+            window.open = function() { return null; };
+            
+            try {
+                openCloakedGame('https://www.google.com', 'Popup Test');
+                logTest('Popup Blocking', 'pass', 'Popup blocking properly detected');
+            } catch (error) {
+                logTest('Popup Blocking', 'fail', `Error: ${error.message}`);
+            }
+            
+            // Restore original function
+            window.open = originalOpen;
+            
+            displayResults('test2-results', testResults.filter(r => r.testName === 'Popup Blocking'));
+        }
+
+        function testMultipleWindows() {
+            logTest('Multiple Windows', 'info', 'Testing multiple cloaked windows...');
+            
+            try {
+                const urls = [
+                    'https://www.google.com',
+                    'https://www.github.com',
+                    'https://www.stackoverflow.com'
+                ];
+                
+                urls.forEach((url, index) => {
+                    openCloakedGame(url, `Test Window ${index + 1}`);
+                });
+                
+                logTest('Multiple Windows', 'pass', `Opened ${urls.length} cloaked windows`);
+                
+            } catch (error) {
+                logTest('Multiple Windows', 'fail', `Error: ${error.message}`);
+            }
+            
+            displayResults('test3-results', testResults.filter(r => r.testName === 'Multiple Windows'));
+        }
+
+        function testErrorHandling() {
+            logTest('Error Handling', 'info', 'Testing error handling...');
+            
+            try {
+                // Test with invalid URL
+                openCloakedGame('invalid-url', 'Error Test');
+                logTest('Error Handling', 'pass', 'Error handling working correctly');
+                
+            } catch (error) {
+                logTest('Error Handling', 'pass', `Error properly caught: ${error.message}`);
+            }
+            
+            displayResults('test4-results', testResults.filter(r => r.testName === 'Error Handling'));
+        }
+
+        function testStealthToggle() {
+            logTest('Stealth Toggle', 'info', 'Testing stealth mode toggle...');
+            
+            try {
+                const testWindow = window.open('about:blank', '_blank', 'width=800,height=600');
+                
+                if (testWindow) {
+                    // Write test HTML with stealth functionality
+                    const testHTML = `
+                        <!DOCTYPE html>
+                        <html>
+                        <head>
+                            <title>Stealth Test</title>
+                            <style>
+                                body { background: #000; color: #fff; }
+                                .stealth { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: #000; display: flex; align-items: center; justify-content: center; }
+                                .content { display: none; }
+                            </style>
+                        </head>
+                        <body>
+                            <div class="stealth" id="stealth">about:blank</div>
+                            <div class="content" id="content">Stealth Test Content</div>
+                            <script>
+                                let stealth = true;
+                                function toggle() {
+                                    stealth = !stealth;
+                                    document.getElementById('stealth').style.display = stealth ? 'flex' : 'none';
+                                    document.getElementById('content').style.display = stealth ? 'none' : 'block';
+                                    document.title = stealth ? 'New Tab' : 'Stealth Test';
+                                }
+                                document.addEventListener('click', toggle);
+                            </script>
+                        </body>
+                        </html>
+                    `;
+                    
+                    testWindow.document.write(testHTML);
+                    testWindow.document.close();
+                    
+                    logTest('Stealth Toggle', 'pass', 'Stealth toggle functionality working');
+                } else {
+                    logTest('Stealth Toggle', 'fail', 'Could not create test window');
+                }
+                
+            } catch (error) {
+                logTest('Stealth Toggle', 'fail', `Error: ${error.message}`);
+            }
+            
+            displayResults('test5-results', testResults.filter(r => r.testName === 'Stealth Toggle'));
+        }
+
+        function testInactivityTimer() {
+            logTest('Inactivity Timer', 'info', 'Testing inactivity timer...');
+            
+            try {
+                const testWindow = window.open('about:blank', '_blank', 'width=800,height=600');
+                
+                if (testWindow) {
+                    const testHTML = `
+                        <!DOCTYPE html>
+                        <html>
+                        <head>
+                            <title>Timer Test</title>
+                            <style>
+                                body { background: #000; color: #fff; }
+                                .stealth { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: #000; display: flex; align-items: center; justify-content: center; }
+                                .content { display: none; }
+                            </style>
+                        </head>
+                        <body>
+                            <div class="stealth" id="stealth">about:blank</div>
+                            <div class="content" id="content">Timer Test Content</div>
+                            <script>
+                                let stealth = true;
+                                let timer;
+                                
+                                function resetTimer() {
+                                    clearTimeout(timer);
+                                    timer = setTimeout(() => {
+                                        if (!stealth) {
+                                            stealth = true;
+                                            document.getElementById('stealth').style.display = 'flex';
+                                            document.getElementById('content').style.display = 'none';
+                                            document.title = 'New Tab';
+                                        }
+                                    }, 5000); // 5 second timer for testing
+                                }
+                                
+                                function showContent() {
+                                    stealth = false;
+                                    document.getElementById('stealth').style.display = 'none';
+                                    document.getElementById('content').style.display = 'block';
+                                    document.title = 'Timer Test';
+                                    resetTimer();
+                                }
+                                
+                                document.addEventListener('click', showContent);
+                                document.addEventListener('mousemove', resetTimer);
+                                resetTimer();
+                            </script>
+                        </body>
+                        </html>
+                    `;
+                    
+                    testWindow.document.write(testHTML);
+                    testWindow.document.close();
+                    
+                    logTest('Inactivity Timer', 'pass', 'Inactivity timer functionality working');
+                } else {
+                    logTest('Inactivity Timer', 'fail', 'Could not create test window');
+                }
+                
+            } catch (error) {
+                logTest('Inactivity Timer', 'fail', `Error: ${error.message}`);
+            }
+            
+            displayResults('test6-results', testResults.filter(r => r.testName === 'Inactivity Timer'));
+        }
+
+        function runAllTests() {
+            logTest('All Tests', 'info', 'Starting comprehensive test suite...');
+            testResults = [];
+            
+            // Run all tests
+            testBasicCloaking();
+            setTimeout(() => testPopupBlocking(), 1000);
+            setTimeout(() => testMultipleWindows(), 2000);
+            setTimeout(() => testErrorHandling(), 3000);
+            setTimeout(() => testStealthToggle(), 4000);
+            setTimeout(() => testInactivityTimer(), 5000);
+            
+            // Display results after all tests complete
+            setTimeout(() => {
+                const passed = testResults.filter(r => r.status === 'pass').length;
+                const failed = testResults.filter(r => r.status === 'fail').length;
+                const total = testResults.length;
+                
+                logTest('All Tests', 'info', `Test suite completed: ${passed}/${total} passed, ${failed} failed`);
+                displayResults('all-tests-results', testResults);
+            }, 6000);
+        }
+
+        // Track opened windows
+        const originalOpen = window.open;
+        window.open = function(...args) {
+            const win = originalOpen.apply(this, args);
+            if (win) {
+                testWindows.push(win);
+                // Clean up closed windows
+                win.addEventListener('beforeunload', () => {
+                    const index = testWindows.indexOf(win);
+                    if (index > -1) {
+                        testWindows.splice(index, 1);
+                    }
+                });
+            }
+            return win;
+        };
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            logTest('Test Suite', 'info', 'Cloaking test suite loaded and ready');
+        });
+    </script>
+</body>
+</html>

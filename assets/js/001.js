@@ -21,11 +21,21 @@ async function checkAuthentication() {
       // Clear any stored auth data
       localStorage.removeItem('authenticated');
       localStorage.removeItem('sessionToken');
+      localStorage.removeItem('userType');
+      localStorage.removeItem('dateCode');
       
       // Redirect to login if not on login page
       if (!window.location.pathname.includes('login.html')) {
         window.location.href = '/login.html';
         return false;
+      }
+    } else {
+      // Store additional session info
+      if (data.userType) {
+        localStorage.setItem('userType', data.userType);
+      }
+      if (data.dateCode) {
+        localStorage.setItem('dateCode', data.dateCode);
       }
     }
     return data.authenticated;
@@ -118,6 +128,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         <a class="navbar-link" href="/apps.html"><i class="fa-solid fa-phone navbar-icon"></i><an>&#65;&#112;</an><an>&#112;&#115;</an></a>
         ${qp ? "" : '<a class="navbar-link" href="/d"><i class="fa-solid fa-laptop navbar-icon"></i><an>&#84;&#97;</an><an>&#98;&#115;</an></a>'}
         <a class="navbar-link" href="/settings.html"><i class="fa-solid fa-gear navbar-icon settings-icon"></i><an>&#83;&#101;&#116;</an><an>&#116;&#105;&#110;&#103;</an></a>
+        ${localStorage.getItem('userType') === 'admin' ? '<a class="navbar-link" href="/admin.html"><i class="fa-solid fa-shield-halved navbar-icon"></i><an>&#65;&#100;&#109;&#105;&#110;</an></a>' : ''}
         <a class="navbar-link" href="/login.html" onclick="logout()"><i class="fa-solid fa-sign-out-alt navbar-icon"></i><an>&#76;&#111;&#103;&#111;&#117;&#116;</an></a>
       </div>`;
     nav.innerHTML = html;

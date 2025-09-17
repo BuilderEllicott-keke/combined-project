@@ -255,17 +255,21 @@
             <div class="login-form">
                 <div class="form-header">
                     <h2>Log in</h2>
-                    <p>Enter your credentials to continue</p>
+                    <p>Enter your daily access code to continue</p>
+                    <div id="currentDate" style="color: #888; font-size: 0.9rem; margin-top: 10px;"></div>
                 </div>
                 
                 <div class="error-message" id="errorMessage"></div>
                 
                 <form id="loginForm">
                     <div class="form-group">
-                        <label for="password">Password</label>
+                        <label for="password">Daily Access Code</label>
                         <div class="input-container">
-                            <span class="input-icon">🔒</span>
-                            <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                            <span class="input-icon">🔑</span>
+                            <input type="password" id="password" name="password" placeholder="Enter today's access code" required>
+                        </div>
+                        <div style="font-size: 0.8rem; color: #666; margin-top: 5px;">
+                            Use today's code or admin code for access
                         </div>
                     </div>
                     
@@ -327,6 +331,25 @@
             }
         });
 
+        // Display current date
+        function updateCurrentDate() {
+            const now = new Date();
+            const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 
+                          'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+            const month = months[now.getMonth()];
+            const day = String(now.getDate()).padStart(2, '0');
+            const year = String(now.getFullYear()).slice(-2);
+            const dateCode = `${month}${day}_${year}`;
+            
+            const dateElement = document.getElementById('currentDate');
+            if (dateElement) {
+                dateElement.textContent = `Today's code format: ${dateCode}`;
+            }
+        }
+        
+        // Update date on page load
+        updateCurrentDate();
+        
         // Check if already authenticated
         if (localStorage.getItem('authenticated') === 'true') {
             window.location.href = '/index.html';

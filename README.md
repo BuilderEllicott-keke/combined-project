@@ -15,13 +15,29 @@ A combined game library featuring the Interstellar design with password protecti
 
 ### 1. Environment Variables
 
-Create a `.env` file in the root directory with the following variables:
+The system uses a daily access code system for enhanced security. Set up your environment variables in Netlify:
 
+#### Required Variables:
+- **Admin Code**: `Ellicott111010!` (for admin access)
+- **Daily Access Codes**: One for each day of the year in format `MonthDD_Year=AccessCode`
+
+#### Example Environment Variables:
 ```env
-AUTH_USERNAME=your_username
-AUTH_PASSWORD=your_password
-SECRET_KEY=your_secret_key
+# Admin access (special privileges)
+ADMIN_CODE=Ellicott111010!
+
+# Daily access codes (MonthDD_Year format)
+Sep17_25=pdF9FR7b32:np9ffBUMvh
+Sep18_25=xXVYGdsfae:nQfDsFsXP5
+Sep19_25=CTxwLhr9FZ:B8gLPmxjvp
+# ... continue for all 365 days
 ```
+
+#### Complete Setup:
+1. Copy the template from `env-template.txt`
+2. Generate unique access codes for each day
+3. Add all 365 codes to Netlify environment variables
+4. The system automatically uses the correct code based on current date
 
 ### 2. Netlify Deployment
 
@@ -69,10 +85,13 @@ The combined project includes games from:
 
 ## Security Features
 
-- Password-based authentication
-- Session management
-- Browser fingerprinting for security binding
-- Secure cookie handling
+- **Daily Access Code System**: Unique codes for each day of the year
+- **Admin Privileges**: Special access for system administration
+- **Session Management**: Secure token-based authentication
+- **Access Logging**: Track all login attempts and user activity
+- **Stealth Mode**: Appears as blank tab to external monitoring
+- **Browser Fingerprinting**: Security binding for additional protection
+- **Secure Cookie Handling**: HttpOnly, Secure, SameSite cookies
 
 ## Customization
 

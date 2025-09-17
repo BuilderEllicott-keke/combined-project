@@ -27,11 +27,22 @@ exports.handler = async (event, context) => {
     // In a real application, you would verify the session token against a database
     // For this example, we'll just check if it exists and has the right format
     if (sessionToken && sessionToken.length === 64) {
+      // Get current date code for context
+      const now = new Date();
+      const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 
+                      'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+      const month = months[now.getMonth()];
+      const day = String(now.getDate()).padStart(2, '0');
+      const year = String(now.getFullYear()).slice(-2);
+      const currentDateCode = `${month}${day}_${year}`;
+      
       return {
         statusCode: 200,
         body: JSON.stringify({ 
           authenticated: true,
-          message: 'Session valid'
+          message: 'Session valid',
+          dateCode: currentDateCode,
+          timestamp: now.toISOString()
         })
       };
     } else {
@@ -44,6 +55,7 @@ exports.handler = async (event, context) => {
       };
     }
   } catch (error) {
+    console.error('Session verification error:', error);
     return {
       statusCode: 500,
       body: JSON.stringify({ 
