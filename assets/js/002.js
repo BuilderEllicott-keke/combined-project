@@ -28,6 +28,11 @@ function saveToLocal(path) {
   sessionStorage.setItem("GoUrl", path);
 }
 
+function now(url) {
+  // Open in new tab for now.gg games
+  window.open(url, '_blank');
+}
+
 function handleClick(app) {
   if (typeof app.say !== "undefined") {
     alert(app.say);
