@@ -1,0 +1,28 @@
+# Intersellar - GE Custom - Simplified Environment Variables
+# Copy these to your Netlify environment variables
+
+# Admin Access Code (Special access for system administration)
+ADMIN_CODE=Ellicott111010!
+
+# Secret Salt for Code Generation (change this to something secure)
+SECRET_SALT=your-secret-salt-here-change-this
+
+# Optional: Override specific dates with custom codes
+# Only add these if you want to override the generated codes
+# Sep17_25=pdF9FR7b32:np9ffBUMvh
+# Sep18_25=xXVYGdsfae:nQfDsFsXP5
+# Sep19_25=CTxwLhr9FZ:B8gLPmxjvp
+
+# Instructions:
+# 1. Copy these 2 variables to your Netlify environment variables
+# 2. Change SECRET_SALT to something secure and unique
+# 3. The system will automatically generate daily codes based on the date
+# 4. Optionally add specific date overrides if needed
+# 5. Admin code (Ellicott111010!) provides special access to admin panel
+# 6. Users can access with the current day's generated code
+
+# How it works:
+# - Each day, a unique code is generated based on the date + secret salt
+# - The same date will always generate the same code (deterministic)
+# - Codes are secure and unpredictable without knowing the secret salt
+# - No need to manually manage 365 environment variables

@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Access Code Generator - Intersellar - GE Custom</title>
+    <style>
+        body {
+            background: #1a1a1a;
+            color: #fff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #2a2a2a;
+            padding: 30px;
+            border-radius: 10px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input, textarea, select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #444;
+            border-radius: 5px;
+            background: #333;
+            color: #fff;
+            font-size: 14px;
+        }
+        button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px 5px;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        .code-output {
+            background: #333;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: monospace;
+            white-space: pre-wrap;
+            max-height: 400px;
+            overflow-y: auto;
+            margin-top: 20px;
+        }
+        .code-item {
+            margin: 5px 0;
+            padding: 5px;
+            background: #444;
+            border-radius: 3px;
+        }
+        .date {
+            color: #007bff;
+            font-weight: bold;
+        }
+        .code {
+            color: #28a745;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔑 Daily Access Code Generator</h1>
+        <p>Generate daily access codes for the Intersellar - GE Custom system.</p>
+
+        <div class="form-group">
+            <label for="secretSalt">Secret Salt:</label>
+            <input type="text" id="secretSalt" placeholder="Enter your secret salt" value="your-secret-salt-here">
+        </div>
+
+        <div class="form-group">
+            <label for="startDate">Start Date:</label>
+            <input type="date" id="startDate" value="2025-09-17">
+        </div>
+
+        <div class="form-group">
+            <label for="endDate">End Date:</label>
+            <input type="date" id="endDate" value="2025-12-31">
+        </div>
+
+        <div class="form-group">
+            <label for="format">Output Format:</label>
+            <select id="format">
+                <option value="env">Environment Variables (.env format)</option>
+                <option value="json">JSON Format</option>
+                <option value="csv">CSV Format</option>
+                <option value="list">Simple List</option>
+            </select>
+        </div>
+
+        <button onclick="generateCodes()">Generate Codes</button>
+        <button onclick="copyToClipboard()">Copy to Clipboard</button>
+        <button onclick="downloadCodes()">Download File</button>
+
+        <div id="codeOutput" class="code-output" style="display: none;"></div>
+    </div>
+
+    <script>
+        function generateCodes() {
+            const secretSalt = document.getElementById('secretSalt').value;
+            const startDate = new Date(document.getElementById('startDate').value);
+            const endDate = new Date(document.getElementById('endDate').value);
+            const format = document.getElementById('format').value;
+
+            if (!secretSalt) {
+                alert('Please enter a secret salt');
+                return;
+            }
+
+            const codes = [];
+            const currentDate = new Date(startDate);
+
+            while (currentDate <= endDate) {
+                const dateCode = formatDateCode(currentDate);
+                const accessCode = generateAccessCode(currentDate, secretSalt);
+                codes.push({ date: dateCode, code: accessCode });
+                currentDate.setDate(currentDate.getDate() + 1);
+            }
+
+            displayCodes(codes, format);
+        }
+
+        function formatDateCode(date) {
+            const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 
+                          'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+            const month = months[date.getMonth()];
+            const day = String(date.getDate()).padStart(2, '0');
+            const year = String(date.getFullYear()).slice(-2);
+            return `${month}${day}_${year}`;
+        }
+
+        function generateAccessCode(date, secretSalt) {
+            const seed = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+            const hash = sha256(seed + secretSalt);
+            const code1 = hash.substring(0, 10);
+            const code2 = hash.substring(10, 20);
+            return `${code1}:${code2}`;
+        }
+
+        function sha256(str) {
+            // Simple SHA-256 implementation for client-side
+            const encoder = new TextEncoder();
+            const data = encoder.encode(str);
+            return crypto.subtle.digest('SHA-256', data).then(hashBuffer => {
+                const hashArray = Array.from(new Uint8Array(hashBuffer));
+                return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+            });
+        }
+
+        async function displayCodes(codes, format) {
+            const output = document.getElementById('codeOutput');
+            output.style.display = 'block';
+
+            let formattedOutput = '';
+
+            switch (format) {
+                case 'env':
+                    formattedOutput = codes.map(c => `${c.date}=${c.code}`).join('\n');
+                    break;
+                case 'json':
+                    formattedOutput = JSON.stringify(codes, null, 2);
+                    break;
+                case 'csv':
+                    formattedOutput = 'Date,Code\n' + codes.map(c => `${c.date},${c.code}`).join('\n');
+                    break;
+                case 'list':
+                    formattedOutput = codes.map(c => `${c.date}: ${c.code}`).join('\n');
+                    break;
+            }
+
+            output.innerHTML = formattedOutput;
+        }
+
+        function copyToClipboard() {
+            const output = document.getElementById('codeOutput');
+            if (output.style.display === 'none') {
+                alert('Please generate codes first');
+                return;
+            }
+
+            navigator.clipboard.writeText(output.textContent).then(() => {
+                alert('Codes copied to clipboard!');
+            }).catch(err => {
+                console.error('Failed to copy: ', err);
+                alert('Failed to copy to clipboard');
+            });
+        }
+
+        function downloadCodes() {
+            const output = document.getElementById('codeOutput');
+            if (output.style.display === 'none') {
+                alert('Please generate codes first');
+                return;
+            }
+
+            const format = document.getElementById('format').value;
+            const extension = format === 'json' ? 'json' : format === 'csv' ? 'csv' : 'txt';
+            const filename = `daily-access-codes.${extension}`;
+            
+            const blob = new Blob([output.textContent], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        // Simple SHA-256 implementation
+        async function sha256(str) {
+            const encoder = new TextEncoder();
+            const data = encoder.encode(str);
+            const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+            const hashArray = Array.from(new Uint8Array(hashBuffer));
+            return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+        }
+
+        // Update generateCodes to use async/await
+        async function generateCodes() {
+            const secretSalt = document.getElementById('secretSalt').value;
+            const startDate = new Date(document.getElementById('startDate').value);
+            const endDate = new Date(document.getElementById('endDate').value);
+            const format = document.getElementById('format').value;
+
+            if (!secretSalt) {
+                alert('Please enter a secret salt');
+                return;
+            }
+
+            const codes = [];
+            const currentDate = new Date(startDate);
+
+            while (currentDate <= endDate) {
+                const dateCode = formatDateCode(currentDate);
+                const accessCode = await generateAccessCode(currentDate, secretSalt);
+                codes.push({ date: dateCode, code: accessCode });
+                currentDate.setDate(currentDate.getDate() + 1);
+            }
+
+            displayCodes(codes, format);
+        }
+
+        async function generateAccessCode(date, secretSalt) {
+            const seed = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+            const hash = await sha256(seed + secretSalt);
+            const code1 = hash.substring(0, 10);
+            const code2 = hash.substring(10, 20);
+            return `${code1}:${code2}`;
+        }
+    </script>
+</body>
+</html>

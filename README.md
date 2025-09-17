@@ -15,29 +15,32 @@ A combined game library featuring the Interstellar design with password protecti
 
 ### 1. Environment Variables
 
-The system uses a daily access code system for enhanced security. Set up your environment variables in Netlify:
+The system uses an intelligent daily access code system that automatically generates secure codes. Set up your environment variables in Netlify:
 
-#### Required Variables:
+#### Required Variables (Only 2 needed!):
 - **Admin Code**: `Ellicott111010!` (for admin access)
-- **Daily Access Codes**: One for each day of the year in format `MonthDD_Year=AccessCode`
+- **Secret Salt**: A secure random string for code generation
 
 #### Example Environment Variables:
 ```env
 # Admin access (special privileges)
 ADMIN_CODE=Ellicott111010!
 
-# Daily access codes (MonthDD_Year format)
-Sep17_25=pdF9FR7b32:np9ffBUMvh
-Sep18_25=xXVYGdsfae:nQfDsFsXP5
-Sep19_25=CTxwLhr9FZ:B8gLPmxjvp
-# ... continue for all 365 days
+# Secret salt for code generation (change this!)
+SECRET_SALT=your-secret-salt-here-change-this
 ```
 
+#### How It Works:
+- **Automatic Code Generation**: The system generates unique daily codes based on the current date + secret salt
+- **Deterministic**: Same date always generates the same code (consistent)
+- **Secure**: Codes are unpredictable without knowing the secret salt
+- **No Manual Management**: No need to manually manage 365 environment variables
+
 #### Complete Setup:
-1. Copy the template from `env-template.txt`
-2. Generate unique access codes for each day
-3. Add all 365 codes to Netlify environment variables
-4. The system automatically uses the correct code based on current date
+1. Copy the 2 variables from `env-simplified.txt`
+2. Change `SECRET_SALT` to something secure and unique
+3. Deploy to Netlify
+4. The system automatically generates daily codes as needed
 
 ### 2. Netlify Deployment
 

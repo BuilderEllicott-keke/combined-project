@@ -11,10 +11,31 @@ function getCurrentDateCode() {
   return `${month}${day}_${year}`;
 }
 
-// Function to get daily access code
+// Function to generate daily access code based on date
+function generateDailyAccessCode() {
+  const dateCode = getCurrentDateCode();
+  const date = new Date();
+  const seed = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+  
+  // Generate deterministic but secure code based on date
+  const hash = crypto.createHash('sha256').update(seed + process.env.SECRET_SALT || 'default-salt').digest('hex');
+  const code1 = hash.substring(0, 10);
+  const code2 = hash.substring(10, 20);
+  return `${code1}:${code2}`;
+}
+
+// Function to get daily access code (either from env or generated)
 function getDailyAccessCode() {
   const dateCode = getCurrentDateCode();
-  return process.env[dateCode];
+  
+  // First try to get from environment variable
+  const envCode = process.env[dateCode];
+  if (envCode) {
+    return envCode;
+  }
+  
+  // If not found, generate one
+  return generateDailyAccessCode();
 }
 
 // Function to check if user is admin

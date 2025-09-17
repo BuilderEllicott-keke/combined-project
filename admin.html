@@ -207,49 +207,22 @@
             document.getElementById('currentDateTime').textContent = `Current Time: ${dateTime}`;
         }
 
-        // Load access codes
+        // Load access codes (generated dynamically)
         function loadAccessCodes() {
-            // In a real implementation, this would fetch from a database
-            const codes = [
-                { date: 'Sep17_25', code: 'pdF9FR7b32:np9ffBUMvh' },
-                { date: 'Sep18_25', code: 'xXVYGdsfae:nQfDsFsXP5' },
-                { date: 'Sep19_25', code: 'CTxwLhr9FZ:B8gLPmxjvp' },
-                { date: 'Sep20_25', code: 'Lpc6vCcPsC:AjsqFuY3yu' },
-                { date: 'Sep21_25', code: 'TPykKgtsEU:T3y2zwtDRj' },
-                { date: 'Sep22_25', code: 'C5zaV4ba2Z:5c4qGn7s6T' },
-                { date: 'Sep23_25', code: 'Vz4VF4RGw9:9fk9YdkysD' },
-                { date: 'Sep24_25', code: 'nYcacC8EaQ:kVsHD6AfbH' },
-                { date: 'Sep25_25', code: 'z4uhmS7NC4:dWxBchhuKa' },
-                { date: 'Sep26_25', code: 'Q39Mg3jHPe:gDLMyQJPgV' },
-                { date: 'Sep27_25', code: 's5YdgsS9ST:JY8JSBn8qh' },
-                { date: 'Sep28_25', code: 'ZeFnm2LCX8:j83rRF3Px4' },
-                { date: 'Sep29_25', code: 'dwz62c9d3E:tAZJTdyCfN' },
-                { date: 'Sep30_25', code: 'XwEmrg9LMz:LzHZPJtRQf' },
-                { date: 'Oct01_25', code: '2TcHewC2pd:GR2MtGnqkC' },
-                { date: 'Oct02_25', code: 'kXsJtCVq43:ZQpxVr3pDX' },
-                { date: 'Oct03_25', code: 'nmsQ9HwWTr:X6kLSNhD9z' },
-                { date: 'Oct04_25', code: 'XEKy67dhf4:LwjwKZkV5p' },
-                { date: 'Oct05_25', code: 'eaqZ5yDgby:cZ65RjUkTU' },
-                { date: 'Oct06_25', code: 'BrEmmwMVVs:heFnEk5PWq' },
-                { date: 'Oct07_25', code: 'R7WndFJjfP:7xTc9PPsnf' },
-                { date: 'Oct08_25', code: 'bFS6DhUzha:HK94KS9fWS' },
-                { date: 'Oct09_25', code: 'uuKxPvpPje:UeTTLjyMYP' },
-                { date: 'Oct10_25', code: '9Lq3wEuT68:fWqQc2tYZ8' },
-                { date: 'Oct11_25', code: 'VFcPpEMRH8:weNFH4Daka' },
-                { date: 'Oct12_25', code: 'BRjVkuNQD6:YyyVT9hGGJ' },
-                { date: 'Oct13_25', code: 'KaKPQjnr2w:wBRqaLYYdX' },
-                { date: 'Oct14_25', code: 'JhjCUDEd6d:r4NvRw8xwa' },
-                { date: 'Oct15_25', code: '9gEznE4Sqr:uCgtDEZZf4' },
-                { date: 'Oct16_25', code: 'xS9gVFZ4cc:6pg6mppCgw' },
-                { date: 'Oct17_25', code: 'wLTqWFKvAS:vRuH4R5PAR' },
-                { date: 'Oct18_25', code: 'uTGHwjS28Y:ULEJpqSvSE' },
-                { date: 'Oct19_25', code: 'QYynpwf2rR:46yQhazZPE' },
-                { date: 'Oct20_25', code: 'eRTmzjGaP3:uRvVzJBwDH' },
-                { date: 'Oct21_25', code: 'NwcwPVAStP:xRAScKUvud' }
-            ];
-
             const container = document.getElementById('accessCodesList');
             container.innerHTML = '';
+
+            // Generate codes for the next 30 days
+            const codes = [];
+            const today = new Date();
+            
+            for (let i = 0; i < 30; i++) {
+                const date = new Date(today);
+                date.setDate(today.getDate() + i);
+                const dateCode = formatDateCode(date);
+                const accessCode = generateAccessCode(date);
+                codes.push({ date: dateCode, code: accessCode });
+            }
 
             codes.forEach(code => {
                 const codeItem = document.createElement('div');
@@ -259,6 +232,34 @@
                     <div class="code-value">${code.code}</div>
                 `;
                 container.appendChild(codeItem);
+            });
+        }
+
+        function formatDateCode(date) {
+            const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 
+                          'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+            const month = months[date.getMonth()];
+            const day = String(date.getDate()).padStart(2, '0');
+            const year = String(date.getFullYear()).slice(-2);
+            return `${month}${day}_${year}`;
+        }
+
+        function generateAccessCode(date) {
+            // This matches the server-side generation
+            const seed = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+            const hash = sha256(seed + 'default-salt'); // This should match your SECRET_SALT
+            const code1 = hash.substring(0, 10);
+            const code2 = hash.substring(10, 20);
+            return `${code1}:${code2}`;
+        }
+
+        function sha256(str) {
+            // Simple SHA-256 implementation for client-side
+            const encoder = new TextEncoder();
+            const data = encoder.encode(str);
+            return crypto.subtle.digest('SHA-256', data).then(hashBuffer => {
+                const hashArray = Array.from(new Uint8Array(hashBuffer));
+                return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
             });
         }
 
