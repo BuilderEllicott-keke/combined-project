@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debug Navigation - Intersellar - GE Custom</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #1a1a1a;
+            color: #fff;
+            margin: 0;
+            padding: 20px;
+        }
+        .debug-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .debug-section {
+            background: #2a2a2a;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+        .status {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+        }
+        .success { background: #4CAF50; }
+        .error { background: #f44336; }
+        .info { background: #2196F3; }
+        .warning { background: #ff9800; }
+        button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover { background: #0056b3; }
+        .test-game {
+            background: #333;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .test-game:hover { background: #444; }
+        .log {
+            background: #000;
+            color: #0f0;
+            padding: 10px;
+            border-radius: 4px;
+            font-family: monospace;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="debug-container">
+        <h1>Navigation Debug Tool</h1>
+        
+        <div class="debug-section">
+            <h2>Test Navigation Links</h2>
+            <button onclick="testNavigation('games')">Test Games Link</button>
+            <button onclick="testNavigation('apps')">Test Apps Link</button>
+            <button onclick="testNavigation('settings')">Test Settings Link</button>
+            <button onclick="testNavigation('home')">Test Home Link</button>
+        </div>
+
+        <div class="debug-section">
+            <h2>Test Game Loading</h2>
+            <div id="game-test-results"></div>
+            <button onclick="testGameLoading()">Test Game Loading</button>
+        </div>
+
+        <div class="debug-section">
+            <h2>Test Search Form</h2>
+            <form id="test-search-form">
+                <input type="text" id="test-search-input" placeholder="Test search" />
+                <button type="submit">Test Search</button>
+            </form>
+        </div>
+
+        <div class="debug-section">
+            <h2>Debug Log</h2>
+            <div id="debug-log" class="log"></div>
+            <button onclick="clearLog()">Clear Log</button>
+        </div>
+
+        <div class="debug-section">
+            <h2>Test Games (Click to Test)</h2>
+            <div class="test-game" onclick="testGameClick('https://google.com')">Test Game 1 (Google)</div>
+            <div class="test-game" onclick="testGameClick('https://youtube.com')">Test Game 2 (YouTube)</div>
+            <div class="test-game" onclick="testGameClick('local-game')">Test Game 3 (Local)</div>
+        </div>
+    </div>
+
+    <script>
+        function log(message, type = 'info') {
+            const logDiv = document.getElementById('debug-log');
+            const timestamp = new Date().toLocaleTimeString();
+            const logEntry = document.createElement('div');
+            logEntry.innerHTML = `[${timestamp}] ${message}`;
+            logDiv.appendChild(logEntry);
+            logDiv.scrollTop = logDiv.scrollHeight;
+        }
+
+        function clearLog() {
+            document.getElementById('debug-log').innerHTML = '';
+        }
+
+        function testNavigation(page) {
+            log(`Testing navigation to ${page}...`);
+            const startTime = Date.now();
+            
+            // Test if the page exists
+            fetch(`/${page}.html`)
+                .then(response => {
+                    const loadTime = Date.now() - startTime;
+                    if (response.ok) {
+                        log(`✓ ${page}.html exists and loaded in ${loadTime}ms`, 'success');
+                        // Actually navigate to test
+                        window.location.href = `/${page}.html`;
+                    } else {
+                        log(`✗ ${page}.html returned ${response.status}`, 'error');
+                    }
+                })
+                .catch(error => {
+                    log(`✗ Error loading ${page}.html: ${error.message}`, 'error');
+                });
+        }
+
+        function testGameLoading() {
+            log('Testing game loading...');
+            fetch('/assets/json/combined-games.json')
+                .then(response => response.json())
+                .then(games => {
+                    log(`✓ Loaded ${games.length} games from combined-games.json`, 'success');
+                    
+                    // Test first few games
+                    games.slice(0, 5).forEach((game, index) => {
+                        log(`Game ${index + 1}: ${game.name} - Link: ${game.link || 'No link'}`, 'info');
+                    });
+                })
+                .catch(error => {
+                    log(`✗ Error loading games: ${error.message}`, 'error');
+                });
+        }
+
+        function testGameClick(url) {
+            log(`Testing game click with URL: ${url}`);
+            
+            // Simulate the game click logic
+            const app = {
+                link: url,
+                local: url === 'local-game',
+                local2: false,
+                blank: false,
+                now: false,
+                custom: false,
+                dy: false
+            };
+            
+            log(`Game properties: local=${app.local}, link=${app.link}`);
+            
+            // Test the redirect logic
+            if (app.local) {
+                log('Would redirect to "rx" then to game URL', 'warning');
+                // window.location.href = "rx";
+                // if (t) {
+                //   window.location.href = app.link;
+                // }
+            } else {
+                log('Would call go() function which redirects to "/d"', 'warning');
+                // go(app.link);
+            }
+        }
+
+        // Test search form
+        document.getElementById('test-search-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const input = document.getElementById('test-search-input');
+            log(`Search form submitted with: "${input.value}"`);
+            
+            // Test if this would redirect
+            if (input.value.trim()) {
+                log('This would trigger processUrl() and redirect to "/d"', 'warning');
+            }
+        });
+
+        // Monitor all clicks
+        document.addEventListener('click', function(e) {
+            if (e.target.tagName === 'A') {
+                log(`Link clicked: ${e.target.href}`, 'info');
+            }
+        });
+
+        // Monitor form submissions
+        document.addEventListener('submit', function(e) {
+            log(`Form submitted: ${e.target.id || 'unknown form'}`, 'warning');
+        });
+
+        // Monitor page navigation
+        window.addEventListener('beforeunload', function() {
+            log('Page is about to unload/navigate', 'warning');
+        });
+
+        // Initialize
+        log('Debug tool initialized');
+        log('Current URL: ' + window.location.href);
+        log('Current pathname: ' + window.location.pathname);
+    </script>
+</body>
+</html>

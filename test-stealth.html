@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stealth Test - Intersellar - GE Custom</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #1a1a1a;
+            color: #fff;
+            margin: 0;
+            padding: 20px;
+        }
+        .test-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .test-section {
+            background: #2a2a2a;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+        .status {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+        }
+        .success { background: #4CAF50; }
+        .error { background: #f44336; }
+        .info { background: #2196F3; }
+        button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover { background: #0056b3; }
+        .stealth-demo {
+            background: #000;
+            color: #333;
+            padding: 20px;
+            text-align: center;
+            border: 1px solid #333;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>Stealth Mode Test</h1>
+        
+        <div class="test-section">
+            <h2>Stealth Mode Demo</h2>
+            <p>This demonstrates how the stealth mode works:</p>
+            <div class="stealth-demo" id="stealthDemo">
+                <div>about:blank</div>
+            </div>
+            <button onclick="showStealthContent()">Show Content</button>
+            <button onclick="hideStealthContent()">Hide Content</button>
+        </div>
+
+        <div class="test-section">
+            <h2>Stealth Features Test</h2>
+            <div id="test-results"></div>
+            <button onclick="runStealthTests()">Run Tests</button>
+        </div>
+
+        <div class="test-section">
+            <h2>How It Works</h2>
+            <div class="info status">
+                <strong>Stealth Mode Features:</strong>
+                <ul>
+                    <li>Page appears as "about:blank" to external monitoring</li>
+                    <li>Title shows "New Tab" when in stealth mode</li>
+                    <li>Content is hidden behind a black overlay</li>
+                    <li>Shows content on user interaction (click, keypress, mouse movement)</li>
+                    <li>Auto-hides after 30 seconds of inactivity</li>
+                    <li>Full website functionality available when activated</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h2>Navigation</h2>
+            <button onclick="window.location.href='/'">Go to Main Page</button>
+            <button onclick="window.location.href='/games.html'">Go to Games</button>
+            <button onclick="window.location.href='/apps.html'">Go to Apps</button>
+            <button onclick="window.location.href='/settings.html'">Go to Settings</button>
+        </div>
+    </div>
+
+    <script>
+        let stealthMode = true;
+
+        function showStealthContent() {
+            stealthMode = false;
+            document.getElementById('stealthDemo').innerHTML = `
+                <div style="color: #fff;">
+                    <h3>Intersellar - GE Custom</h3>
+                    <p>This is the actual website content!</p>
+                    <p>Search, games, apps - everything is here.</p>
+                </div>
+            `;
+        }
+
+        function hideStealthContent() {
+            stealthMode = true;
+            document.getElementById('stealthDemo').innerHTML = `
+                <div>about:blank</div>
+            `;
+        }
+
+        function runStealthTests() {
+            const results = document.getElementById('test-results');
+            results.innerHTML = '';
+
+            // Test 1: Check if stealth functions exist
+            if (typeof window.showContent === 'function') {
+                addResult('✓ Stealth functions are available', 'success');
+            } else {
+                addResult('✗ Stealth functions not found', 'error');
+            }
+
+            // Test 2: Check if main page elements exist
+            fetch('/')
+                .then(response => response.text())
+                .then(html => {
+                    if (html.includes('stealth-container')) {
+                        addResult('✓ Stealth container found in main page', 'success');
+                    } else {
+                        addResult('✗ Stealth container not found', 'error');
+                    }
+
+                    if (html.includes('main-content')) {
+                        addResult('✓ Main content container found', 'success');
+                    } else {
+                        addResult('✗ Main content container not found', 'error');
+                    }
+                })
+                .catch(() => {
+                    addResult('✗ Could not load main page', 'error');
+                });
+
+            // Test 3: Check authentication
+            if (localStorage.getItem('authenticated') === 'true') {
+                addResult('✓ User is authenticated', 'success');
+            } else {
+                addResult('⚠ User not authenticated - will redirect to login', 'info');
+            }
+        }
+
+        function addResult(message, type) {
+            const results = document.getElementById('test-results');
+            const div = document.createElement('div');
+            div.className = `status ${type}`;
+            div.textContent = message;
+            results.appendChild(div);
+        }
+
+        // Initialize
+        if (localStorage.getItem('authenticated') !== 'true') {
+            addResult('⚠ Not authenticated - some features may not work', 'info');
+        }
+    </script>
+</body>
+</html>

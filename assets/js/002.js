@@ -62,9 +62,13 @@ function handleClick(app) {
   } else if (app.dy) {
     dy(Selected);
   } else {
-    go(Selected);
-    if (t) {
-      blank(Selected);
+    // For regular games, launch them directly instead of redirecting to homepage
+    if (Selected && Selected.startsWith('http')) {
+      // External game - open in new tab or iframe
+      window.open(Selected, '_blank');
+    } else if (Selected) {
+      // Local game or relative path
+      window.location.href = Selected;
     }
   }
   return false;
@@ -391,6 +395,15 @@ fetch(path)
   })
   .catch(error => {
     console.error("Error fetching JSON data:", error);
+    // Show user-friendly error message
+    const errorDiv = document.createElement('div');
+    errorDiv.style.cssText = 'background: #ff4444; color: white; padding: 20px; margin: 20px; border-radius: 8px; text-align: center;';
+    errorDiv.innerHTML = `
+      <h3>Failed to load games</h3>
+      <p>There was an error loading the game library. Please refresh the page.</p>
+      <button onclick="location.reload()" style="background: white; color: #ff4444; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer;">Refresh Page</button>
+    `;
+    document.body.appendChild(errorDiv);
   });
 
 function category() {

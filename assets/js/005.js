@@ -1,6 +1,6 @@
 // i.js
 window.addEventListener("load", () => {
-  navigator.serviceWorker.register("../sw.js?v=2025-04-15", {
+  navigator.serviceWorker.register("/sw.js?v=2025-04-15", {
     scope: "/a/",
   });
 });
@@ -30,6 +30,9 @@ if (form && input) {
       processUrl(input.value, "/d");
     }
   });
+} else {
+  // No search form found, this is normal for games/apps pages
+  console.log("No search form found on this page");
 }
 function processUrl(value, path) {
   let url = value.trim();
@@ -40,6 +43,13 @@ function processUrl(value, path) {
     url = searchUrl + url;
   } else if (!(url.startsWith("https://") || url.startsWith("http://"))) {
     url = `https://${url}`;
+  }
+
+  // Check if proxy config is available
+  if (typeof __uv$config === 'undefined') {
+    console.error('Proxy configuration not loaded. Please refresh the page.');
+    alert('Proxy system not ready. Please refresh the page.');
+    return;
   }
 
   sessionStorage.setItem("GoUrl", __uv$config.encodeUrl(url));

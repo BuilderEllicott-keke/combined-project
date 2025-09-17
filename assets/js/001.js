@@ -40,11 +40,48 @@ async function checkAuthentication() {
   }
 }
 
+// Stealth mode functionality
+function initializeStealthMode() {
+  // Override the stealth functions from the main page
+  window.showContent = function() {
+    const stealthOverlay = document.getElementById('stealthOverlay');
+    const mainContent = document.getElementById('mainContent');
+    const title = document.getElementById('t');
+    
+    if (stealthOverlay && mainContent) {
+      stealthOverlay.classList.add('hidden');
+      mainContent.classList.add('visible');
+      if (title) title.textContent = 'Intersellar - GE Custom';
+    }
+  };
+
+  window.hideContent = function() {
+    const stealthOverlay = document.getElementById('stealthOverlay');
+    const mainContent = document.getElementById('mainContent');
+    const title = document.getElementById('t');
+    
+    if (stealthOverlay && mainContent) {
+      stealthOverlay.classList.remove('hidden');
+      mainContent.classList.remove('visible');
+      if (title) title.textContent = 'New Tab';
+    }
+  };
+}
+
 document.addEventListener("DOMContentLoaded", async () => {
   // Check authentication first
   const isAuthenticated = await checkAuthentication();
   if (!isAuthenticated && !window.location.pathname.includes('login.html')) {
+    // Only redirect to login if not already there
+    if (window.location.pathname !== '/login.html') {
+      window.location.href = '/login.html';
+    }
     return; // Stop execution if not authenticated
+  }
+
+  // Initialize stealth mode if on main page
+  if (window.location.pathname === '/' || window.location.pathname === '/index.html') {
+    initializeStealthMode();
   }
 
   // Blocked Hostnames Check
@@ -74,14 +111,14 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
     const html = `
       <div id="icon-container">
-        <a class="icon" href="/./"><img alt="nav" id="INImg" src="${LogoUrl}"/></a>
+        <a class="icon" href="/"><img alt="nav" id="INImg" src="${LogoUrl}"/></a>
       </div>
       <div class="f-nav-right">
-        <a class="navbar-link" href="/./games.html"><i class="fa-solid fa-gamepad navbar-icon"></i><an>&#71;&#97;</an><an>&#109;&#101;&#115;</an></a>
-        <a class="navbar-link" href="/./apps.html"><i class="fa-solid fa-phone navbar-icon"></i><an>&#65;&#112;</an><an>&#112;&#115;</an></a>
-        ${qp ? "" : '<a class="navbar-link" href="/./d"><i class="fa-solid fa-laptop navbar-icon"></i><an>&#84;&#97;</an><an>&#98;&#115;</an></a>'}
-        <a class="navbar-link" href="/./settings.html"><i class="fa-solid fa-gear navbar-icon settings-icon"></i><an>&#83;&#101;&#116;</an><an>&#116;&#105;&#110;&#103;</an></a>
-        <a class="navbar-link" href="/./login.html" onclick="logout()"><i class="fa-solid fa-sign-out-alt navbar-icon"></i><an>&#76;&#111;&#103;&#111;&#117;&#116;</an></a>
+        <a class="navbar-link" href="/games.html"><i class="fa-solid fa-gamepad navbar-icon"></i><an>&#71;&#97;</an><an>&#109;&#101;&#115;</an></a>
+        <a class="navbar-link" href="/apps.html"><i class="fa-solid fa-phone navbar-icon"></i><an>&#65;&#112;</an><an>&#112;&#115;</an></a>
+        ${qp ? "" : '<a class="navbar-link" href="/d"><i class="fa-solid fa-laptop navbar-icon"></i><an>&#84;&#97;</an><an>&#98;&#115;</an></a>'}
+        <a class="navbar-link" href="/settings.html"><i class="fa-solid fa-gear navbar-icon settings-icon"></i><an>&#83;&#101;&#116;</an><an>&#116;&#105;&#110;&#103;</an></a>
+        <a class="navbar-link" href="/login.html" onclick="logout()"><i class="fa-solid fa-sign-out-alt navbar-icon"></i><an>&#76;&#111;&#103;&#111;&#117;&#116;</an></a>
       </div>`;
     nav.innerHTML = html;
   }

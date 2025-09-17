@@ -7,34 +7,151 @@
   <meta http-equiv="X-Content-Type-Options" content="nosniff" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="shortcut icon" id="tab-favicon" href="favicon.png" />
-  <title id="t">Intersellar - GE Custom</title>
+  <title id="t">New Tab</title>
   <link rel="stylesheet" href="/assets/css/global.css?v=6" />
-  <link rel="stylesheet" href="/assets/css/h.css?v=01" />
+  <link rel="stylesheet" href="/assets/css/container.css?v=2" />
   <link rel="stylesheet" href="/assets/css/nav.css?v=01" />
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6840529569014734"
     crossorigin="anonymous"></script>
+  <style>
+    body {
+      background: #000;
+      color: #fff;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    .stealth-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #000;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.5s ease;
+    }
+    .stealth-container.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+    .stealth-text {
+      font-size: 14px;
+      color: #333;
+      text-align: center;
+    }
+    .main-content {
+      display: none;
+      width: 100%;
+      height: 100vh;
+    }
+    .main-content.visible {
+      display: block;
+    }
+  </style>
 </head>
 
-<body class="center" onload="SplashT">
-  <div class="f-nav"></div>
-  <div id="particles-js">
-    <script rel="preload" src="https://cdn.jsdelivr.net/particles.js/2.0.0/"></script>
-    <div class="main">
-      <h1 class="title">&#73;&#110;&#116;&#101;&#114;&#115;&#101;&#108;&#108;&#97;&#114; - &#71;&#69; &#67;&#117;&#115;&#116;&#111;&#109;</h1>
-      <p id="splash"></p>
-      <div class="search-container">
-        <form id="fv" method="POST">
-          <input id="iv" class="search-home" placeholder="Search or enter a URL" type="text" />
-        </form>
-      </div>
+<body>
+  <!-- Stealth overlay that looks like a blank tab -->
+  <div class="stealth-container" id="stealthOverlay">
+    <div class="stealth-text">
+      <div>about:blank</div>
     </div>
   </div>
+
+  <!-- Actual website content -->
+  <div class="main-content" id="mainContent">
+    <div class="f-nav"></div>
+    <div class="input-c">
+      <input type="text" id="search" onkeyup="bar()" placeholder="Search" />
+      <select id="category" name="category" onchange="category()">
+        <option value="all">All</option>
+        <option value="android">Android Emulator</option>
+        <option value="2P">Multiplayer</option>
+        <option value="sports">Sports</option>
+        <option value="flash">Flash</option>
+        <option value="emu">Emulator</option>
+        <option value="local">Local</option>
+      </select>
+    </div>
+    <div class="pinned"></div>
+    <div class="apps"></div>
+  </div>
+
   <script src="assets/js/005.js?v=000"></script>
   <script src="/assets/js/004.js?v=000"></script>
   <script src="./assets/mathematics/bundle.js?v=2025-04-15"></script>
   <script src="./assets/mathematics/config.js?v=2025-04-15"></script>
   <script src="assets/js/003.js?v=000"></script>
+  <script src="/assets/js/002.js?v=001"></script>
   <script src="/assets/js/001.js?v=001"></script>
+  
+  <script>
+    // Authentication check
+    if (localStorage.getItem('authenticated') !== 'true') {
+      window.location.href = '/login.html';
+    }
+
+    // Stealth functionality
+    let stealthMode = true;
+    let stealthTimeout;
+
+    function showContent() {
+      stealthMode = false;
+      document.getElementById('stealthOverlay').classList.add('hidden');
+      document.getElementById('mainContent').classList.add('visible');
+      document.getElementById('t').textContent = 'Intersellar - GE Custom';
+    }
+
+    function hideContent() {
+      stealthMode = true;
+      document.getElementById('stealthOverlay').classList.remove('hidden');
+      document.getElementById('mainContent').classList.remove('visible');
+      document.getElementById('t').textContent = 'New Tab';
+    }
+
+    // Show content on any user interaction
+    document.addEventListener('click', function() {
+      if (stealthMode) {
+        showContent();
+      }
+    });
+
+    document.addEventListener('keydown', function() {
+      if (stealthMode) {
+        showContent();
+      }
+    });
+
+    document.addEventListener('mousemove', function() {
+      if (stealthMode) {
+        clearTimeout(stealthTimeout);
+        stealthTimeout = setTimeout(showContent, 1000);
+      }
+    });
+
+    // Auto-hide after 30 seconds of inactivity
+    let inactivityTimer;
+    function resetInactivityTimer() {
+      clearTimeout(inactivityTimer);
+      inactivityTimer = setTimeout(() => {
+        if (!stealthMode) {
+          hideContent();
+        }
+      }, 30000);
+    }
+
+    document.addEventListener('mousemove', resetInactivityTimer);
+    document.addEventListener('keydown', resetInactivityTimer);
+    document.addEventListener('click', resetInactivityTimer);
+
+    // Initialize
+    resetInactivityTimer();
+  </script>
+
   <!-- DO NOT REMOVE-->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-WKJQ5QHQTJ"></script>
   <script>
@@ -43,7 +160,6 @@
       dataLayer.push(arguments)
     }
     gtag("js", new Date())
-
     gtag("config", "G-WKJQ5QHQTJ")
   </script>
   <!-- DO NOT REMOVE-->
